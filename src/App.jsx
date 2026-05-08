@@ -1,8 +1,10 @@
 import React from 'react'
+import HomePage from './pages/HomePage'
+import "./index.css"
 
 const App = () => {
   return (
-    <div>App</div>
+    <div className="h-dvh flex justify-center items-center"><HomePage/></div>
   )
 }
 
