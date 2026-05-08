@@ -1,10 +1,7 @@
 # Install a Build Tool (Vite)
 
-Run this command to install Vite:
-    npm install -g create-vite
-
-If the installation was a success, you will get a result like this:
-    added 1 package in 649ms
+git Clone
+git clone https://github.com/srinathj-dev/contact-Vault.git
 
 cd ContactBook
 
