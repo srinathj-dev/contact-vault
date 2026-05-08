@@ -1,3 +1,28 @@
+# Install a Build Tool (Vite)
+
+Run this command to install Vite:
+    npm install -g create-vite
+
+If the installation was a success, you will get a result like this:
+    added 1 package in 649ms
+
+cd ContactBook
+
+run this command to install dependencies:
+    npm install
+
+Run this command to run the React application ContactBook:
+    npm run dev
+
+Which will result in this:
+    VITE v6.3.5  ready in 217 ms
+
+➜ Local: http://localhost:     /
+➜ Network: use --host to expose
+➜ press h + enter to show help
+
+
+
 # React + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
