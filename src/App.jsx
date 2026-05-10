@@ -1,9 +1,9 @@
+import Layout from './components/Layout'
 import HomePage from './pages/HomePage'
-import "./index.css"
 
 const App = () => {
   return (
-    <div className="h-dvh flex justify-center items-center"><HomePage/></div>
+    <div className="h-dvh "><Layout><HomePage/></Layout></div>
   )
 }
 
