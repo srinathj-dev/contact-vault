@@ -1,3 +1,24 @@
+# Install a Build Tool (Vite)
+
+git clone https://github.com/srinathj-dev/contact-Vault.git
+
+cd Contact-vault
+
+run this command to install dependencies:
+    npm install
+
+Run this command to run the React application ContactBook:
+    npm run dev
+
+Which will result in this:
+    VITE v6.3.5  ready in 217 ms
+
+➜ Local: http://localhost:5173/
+➜ Network: use --host to expose
+➜ press h + enter to show help
+
+
+
 # React + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.

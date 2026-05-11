@@ -1,7 +1,10 @@
-import './index.css'
+import HomePage from './pages/HomePage'
+import "./index.css"
 
-function App() {
-  return <h1 className="text-7xl font-bold">Hello world!</h1>
+const App = () => {
+  return (
+    <div className="h-dvh flex justify-center items-center"><HomePage/></div>
+  )
 }
 
 export default App
