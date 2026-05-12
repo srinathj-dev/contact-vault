@@ -1,9 +1,9 @@
-import Layout from './components/Layout'
 import HomePage from './pages/HomePage'
+import Layout from './components/Layout'
 
 const App = () => {
   return (
-    <div className="h-dvh "><Layout><HomePage/></Layout></div>
+    <Layout><HomePage/></Layout>
   )
 }
 

@@ -7,7 +7,7 @@ cd Contact-vault
 run this command to install dependencies:
     npm install
 
-Run this command to run the React application ContactBook:
+Run this command to run the React application contact-vault:
     npm run dev
 
 Which will result in this:

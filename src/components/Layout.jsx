@@ -3,14 +3,14 @@ import Sidebar from './Sidebar'
 
 const Layout = ({ children }) => {
   return (
-    <div className="h-dvh flex flex-col">
-      <div className = "bg-[#f9fafc]"> 
+    <div className="h-dvh flex flex-col bg-[#f9fafc]">
+      <div> 
         <Header />
       </div>
-      <div className='flex flex-1'>
+      <div className="flex flex-1">
         
         <Sidebar />
-        <main className=" flex flex-1 justify-center items-center">
+        <main className=" flex flex-1 justify-center items-center ">
           { children }
         </main>
       </div>
