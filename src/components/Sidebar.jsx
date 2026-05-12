@@ -1,10 +1,13 @@
 const Sidebar = () => {
+  // here requirement is vertical alignment of elements with gap-2 using grid is easy to understand,
+  // grid is for vertical allignment gap-2 is for gap,
+  // Than flex flex-col  gap-2, 
   return (
     <aside className="w-60 border-r border-gray-200 p-4">
-      <nav className="grid gap-2">
-        <button className="p-1 px-4 rounded-md bg-[#615fff] text-white backdrop-blur-3xl text-nowrap cursor-pointer">All Contacts</button>
-        <button className="p-1 px-4 rounded-md bg-[#615fff] text-white backdrop-blur-3xl text-nowrap cursor-pointer">Favorites</button>
-        <button className="p-1 px-4 rounded-md bg-[#615fff] text-white backdrop-blur-3xl text-nowrap cursor-pointer">Add Contact</button>
+      <nav className="flex  flex-col gap-2">
+        <button class="btn-primary">All Contacts</button>
+        <button class="btn-primary">Favorites</button>
+        <button class="btn-primary">Add Contact</button>
       </nav>
     </aside>
   )

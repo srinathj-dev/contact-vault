@@ -1,1 +1,13 @@
-@import 'tailwindcss';
+@import "tailwindcss";
+
+@theme {
+  --color-primary: #615fff;
+  --font-brand: "Inter", sans-serif;
+}
+
+@layer components {
+  .btn-primary {
+    @apply bg-primary text-white p-1 px-3 rounded-sm font-brand transition-all duration-500 ease-in-out;
+    @apply hover:bg-blue-700 active:scale-95;
+  }
+} 
