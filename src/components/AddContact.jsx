@@ -7,6 +7,7 @@ const AddContact  =  ()=>{
   const [email, setEmail]  =  useState("");
   const [address, setAddress] = useState("");
   const [contacts, setContacts]  =  useState([]);
+  const [check, setCheck] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
 
   function handleSubmit(e) {
@@ -38,7 +39,7 @@ const AddContact  =  ()=>{
   }
   return (
     <>
-      <div className = "flex flex-col justify-start gap-6 border-2 border-slate-100 bg-white h-full rounded-2xl p-6">
+      <div className = "flex flex-col justify-start gap-6 border-2 border-slate-100 bg-white h-full rounded-2xl p-10">
         <div className="w-full flex flex-col items-center">
           <h1 className="text-2xl font-semibold">New Contact</h1>
           <p className="font-light text-slate-500">Safely stored in your private vault</p>
@@ -77,7 +78,7 @@ const AddContact  =  ()=>{
             <div className = "input-container" >
               <span className="h-full flex flex-start pt-4"><i className="text-[14px] fa-solid fa-location-dot"></i></span>
               <textarea  name="address"  placeholder="Enter Your Address Here..." id="address"
-                className = "w-full input-primary" onChange = {(e) => setName(e.target.value)} >
+                className = "w-full input-primary" onChange = {(e) => setAddress(e.target.value)} >
               </textarea>
             </div>
           </label> 
@@ -85,12 +86,12 @@ const AddContact  =  ()=>{
           <div className = "flex items-center gap-2 px-3 rounded-xl border-2 bg-indigo-300/10 border-slate-100/40 justify-between py-4" >
             <div className="flex">
               <span className="flex flex-center justify-center items-center bg-white p-2 rounded-lg"><i className="text-[14px] fa-solid fa-heart text-indigo-500"></i></span>
-              <div className="flex flex-col px-3"><h2 className="text-sm font-semibold">Favorite</h2><p className="text-xs">Pin to top for quick access</p></div>
+              <div className="flex flex-col px-3"><h2 className="text-sm font-semibold">Favorite</h2><p className="text-xs text-slate-400">Pin to top for quick access</p></div>
             </div>
             
-            <label htmlFor="favButton" className="w-12 h-6 bg-indigo-600 rounded-2xl relative">
-              <input type="checkbox" className="hidden"  id="favButton"/>
-              <div className="absolute top-1 left-1 w-4 h-4 bg-white rounded-full transition-transform translate-x-6"></div>
+            <label htmlFor="favButton" className="w-12 h-6 transition-all delay-300 ease-in-out has-[:checked]:bg-indigo-600 rounded-2xl relative">
+              <input type="checkbox" className="hidden peer"  id="favButton"/>
+              <div className="absolute top-1 left-1 w-4 h-4 bg-white rounded-full transition-all delay-300 ease-in-out peer-checked:translate-x-6"></div>
             </label>
           </div>  
 
