@@ -1,8 +1,9 @@
+
+import AddContact from "../components/AddContact";
+
 const HomePage = () => {
   return (
-    
-      <h1 className="text-2xl font-bold">ContactVault</h1>
-    
+      <AddContact />
   )
 }
 
