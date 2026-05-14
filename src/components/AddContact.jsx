@@ -62,9 +62,9 @@ const AddContact  =  ()=>{
         </div>
         
         <form className = "flex flex-col gap-6 " action = "" onSubmit = {handleSubmit}>
-
+       
           <FormInput label="FULL NAME" id="full_name" name="full_name" type="text" placeholder="e.g. Sai Srinath" 
-          icon="text-[12px] fa-regular fa-user" value={name} onChange={setName} isSubmitted={isSubmitted}/>
+          icon="text-[12px] fa-regular fa-user" value={name} onChange={setName} hasError={isSubmitted && name.trim() === "" ? true : false}/>
 
           <div className="flex flex-col lg:flex-row lg:flex-basis gap-2 w-full">
             <FormInput label="PHONE" id="mobile_no" name="mobile_no" type="tel" placeholder="9876543210" 
@@ -89,9 +89,9 @@ const AddContact  =  ()=>{
               <div className="flex flex-col px-3"><h2 className="text-sm font-semibold">Favorite</h2><p className="text-xs text-slate-400">Pin to top for quick access</p></div>
             </div>
             
-            <label htmlFor="favButton" className="w-12 h-6 transition-all delay-300 ease-in-out has-[:checked]:bg-indigo-600 rounded-2xl relative">
+            <label htmlFor="favButton" className="w-12 h-6 bg-slate-300 transition-all delay-300 ease-in-out has-[:checked]:bg-indigo-600 rounded-2xl relative">
               <input type="checkbox" className="hidden peer"  id="favButton"/>
-              <div className="absolute top-1 left-1 w-4 h-4 bg-white rounded-full transition-all delay-300 ease-in-out peer-checked:translate-x-6"></div>
+              <div className="absolute top-1 left-1 w-4 h-4 bg-white rounded-full transition-transform delay-300 ease-in-out peer-checked:translate-x-6"></div>
             </label>
           </div>  
 
