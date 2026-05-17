@@ -3,11 +3,11 @@ const Sidebar = () => {
   // grid is for vertical allignment gap-2 is for gap,
   // Than flex flex-col  gap-2, 
   return (
-    <aside className="w-60 border-r border-gray-200 p-4">
+    <aside className="w-40 border-r border-gray-200 p-4">
       <nav className="flex  flex-col gap-2">
-        <button class="btn-primary">All Contacts</button>
-        <button class="btn-primary">Favorites</button>
-        <button class="btn-primary">Add Contact</button>
+        <button className="btn-primary">All Contacts</button>
+        <button className="btn-primary">Favorites</button>
+        <button className="btn-primary">Add Contact</button>
       </nav>
     </aside>
   )
