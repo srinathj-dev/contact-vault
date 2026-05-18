@@ -129,7 +129,6 @@ const AddContact = ({contacts, setContacts,}) => {
               value={phone}
               onChange={setPhone}
               required = "required"
-              // title="Phone number must be atleast 3 digits"
               hasError={isPhoneValid ? true : false }
             />
             {isPhoneValid && (
