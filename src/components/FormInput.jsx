@@ -6,6 +6,9 @@ const FormInput = ({label,
             icon,
             value,
             hasError,
+            required,
+            pattern,
+            title,
             onChange}) => {
   const Icon = icon;
   return (
@@ -23,6 +26,9 @@ const FormInput = ({label,
           name={name}
           placeholder={placeholder}
           id={id}
+          // required
+          // pattern={pattern}
+          // title={title}
           className="input-primary"
           onChange={(e) => onChange(e.target.value)}
         />

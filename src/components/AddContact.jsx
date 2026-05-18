@@ -1,23 +1,18 @@
 import { useState } from 'react';
 import { User, Phone, Mail, MapPin, Camera, Heart } from 'lucide-react';
 import FormInput from './FormInput';
+import validator from 'validator';
 
-const AddContact = ({
-  imageUrl,
-  setImageUrl,
-  name,
-  setName,
-  phone,
-  setPhone,
-  email,
-  setEmail,
-  address,
-  setAddress,
-  favourite,
-  setFavourite,
-  contacts,
-  setContacts,
-}) => {
+
+
+const AddContact = ({contacts, setContacts,}) => {
+
+  const [imageUrl, setImageUrl] = useState("");
+  const [name, setName]  =  useState("");
+  const [phone, setPhone]  =  useState("");
+  const [email, setEmail]  =  useState("");
+  const [address, setAddress] = useState("");
+  const [favourite, setFavourite] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
 
   function handleImageChange(e) {
@@ -28,15 +23,18 @@ const AddContact = ({
   }
 
   function handleSubmit(e) {
+   
     e.preventDefault();
     setIsSubmitted(true);
     // 1. name empty check
-    if (name.trim() === '') {
-      return;
-    }
+    console.log(validator.isMobilePhone(phone, 'en-IN'));
+    if (name.trim() === '' || !validator.isMobilePhone(phone.trim(), 'en-IN') || !validator.isEmail(email)) {
+         return;
+        }
 
     // 2. contact object create
     const contact = {
+      url: imageUrl,
       id: crypto.randomUUID(),
       name: name,
       phone: phone,
@@ -50,6 +48,7 @@ const AddContact = ({
     setContacts([...contacts, contact]);
 
     // 4. inputs clear
+    setImageUrl('');
     setName('');
     setPhone('');
     setEmail('');
@@ -72,7 +71,7 @@ const AddContact = ({
           <div className="w-[120px] h-[120px] bg-slate-100 border-4 border-slate-50 rounded-full flex items-center justify-center hover:border-indigo-100 p-1">
             {imageUrl ? (
               <img
-                className="w-full h-full object-full rounded-full"
+                className="w-full h-full object-fit rounded-full"
                 src={imageUrl}
                 alt="Profile preview"
               />
@@ -86,7 +85,6 @@ const AddContact = ({
             htmlFor="imageUpload" aria-label="Upload profile image"
             className="w-10 h-10 rounded-full bg-indigo-600 border-3 border-white absolute bottom-2 right-1 flex  justify-center items-center cursor-pointer">
             <Camera color="white" size={24} />
-            
             <input
               type="file"
               id="imageUpload"
@@ -117,27 +115,43 @@ const AddContact = ({
         />
 
         <div className="flex flex-col lg:flex-row lg:basis-auto gap-2 w-full">
-          <FormInput
-            label="PHONE"
-            id="mobile_no"
-            name="mobile_no"
-            type="tel"
-            placeholder="9876543210"
-            icon={Phone}
-            value={phone}
-            onChange={setPhone}
-          />
+          <div>
+            <FormInput
+              label="PHONE"
+              id="mobile_no"
+              name="mobile_no"
+              type="tel"
+              placeholder="9876543210"
+              icon={Phone}
+              value={phone}
+              onChange={setPhone}
+              required = "required"
+              // title="Phone number must be atleast 3 digits"
+              hasError={isSubmitted && !validator.isMobilePhone(phone.trim(), 'en-IN') ? true : false }
+            />
+            {isSubmitted && !validator.isMobilePhone(phone.trim(), 'en-IN') && (
+            <p className="text-xs text-red-500">
+              Enter a valid Indian mobile number
+            </p>)}
+          </div>
 
+          <div>
           <FormInput
             label="EMAIL"
             id="email"
             name="email"
-            type="email"
+            // type="email"
             placeholder="balaKrishna@gmail.com"
             icon={Mail}
             value={email}
             onChange={setEmail}
+            hasError={(isSubmitted && !validator.isEmail(email)) ? true : false}
           />
+          {isSubmitted && !validator.isEmail(email) && (
+            <p className="text-xs text-red-500">
+              Enter a valid Email Id Ex: asdfghjkl@asdf.com
+            </p>)}
+          </div>
         </div>
 
         <label htmlFor="address" className="input-label">
@@ -151,6 +165,7 @@ const AddContact = ({
               placeholder="Enter Your Address Here..."
               id="address"
               className="w-full input-primary text-wrap"
+              value={address}
               onChange={(e) => setAddress(e.target.value)}
             ></textarea>
           </div>

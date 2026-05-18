@@ -3,7 +3,7 @@ import Sidebar from './Sidebar'
 
 const Layout = ({ children }) => {
   return (
-    <div className="min-h-dvh flex flex-col bg-[#f9fafc overflow-hidden]">
+    <div className="min-h-dvh flex flex-col bg-[#f9fafc] overflow-hidden">
       
         <Header />
       
