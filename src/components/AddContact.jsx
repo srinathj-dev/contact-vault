@@ -27,7 +27,7 @@ const AddContact = ({contacts, setContacts,}) => {
     e.preventDefault();
     setIsSubmitted(true);
     // 1. name empty check
-    console.log(validator.isMobilePhone(phone, 'en-IN'));
+   
     if (name.trim() === '' || !validator.isMobilePhone(phone.trim(), 'en-IN') || !validator.isEmail(email)) {
          return;
         }
@@ -56,6 +56,9 @@ const AddContact = ({contacts, setContacts,}) => {
     setIsSubmitted(false);
     setFavourite(false);
   }
+
+  const isPhoneValid = isSubmitted && !validator.isMobilePhone(phone.trim(), 'en-IN');
+  const isEmailValid = isSubmitted && !validator.isEmail(email);
 
   return (
     <div className="flex flex-col justify-start gap-6 border-2 border-slate-100 bg-white h-full rounded-2xl p-10">
@@ -127,9 +130,9 @@ const AddContact = ({contacts, setContacts,}) => {
               onChange={setPhone}
               required = "required"
               // title="Phone number must be atleast 3 digits"
-              hasError={isSubmitted && !validator.isMobilePhone(phone.trim(), 'en-IN') ? true : false }
+              hasError={isPhoneValid ? true : false }
             />
-            {isSubmitted && !validator.isMobilePhone(phone.trim(), 'en-IN') && (
+            {isPhoneValid && (
             <p className="text-xs text-red-500">
               Enter a valid Indian mobile number
             </p>)}
@@ -140,14 +143,13 @@ const AddContact = ({contacts, setContacts,}) => {
             label="EMAIL"
             id="email"
             name="email"
-            // type="email"
             placeholder="balaKrishna@gmail.com"
             icon={Mail}
             value={email}
             onChange={setEmail}
-            hasError={(isSubmitted && !validator.isEmail(email)) ? true : false}
+            hasError={isEmailValid ? true : false}
           />
-          {isSubmitted && !validator.isEmail(email) && (
+          {isEmailValid && (
             <p className="text-xs text-red-500">
               Enter a valid Email Id Ex: asdfghjkl@asdf.com
             </p>)}

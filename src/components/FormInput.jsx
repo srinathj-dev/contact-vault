@@ -26,9 +26,6 @@ const FormInput = ({label,
           name={name}
           placeholder={placeholder}
           id={id}
-          // required
-          // pattern={pattern}
-          // title={title}
           className="input-primary"
           onChange={(e) => onChange(e.target.value)}
         />
