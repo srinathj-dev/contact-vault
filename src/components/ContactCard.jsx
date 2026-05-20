@@ -21,7 +21,7 @@ const ContactCard = ({name, phone, url, favourite}) => {
         </div>
       </div>
       <div className='flex items-center gap-2'>
-        <div className ='h-full flex items-center justify-center' onClick={(e) =>{changeFavorite(id)}}>
+        <div className ='h-full flex items-center justify-center' >
           {favourite ? (<Heart className ='w-full h-full rounded-full text-red-500 fill-red-500 bg-red-50 p-2'  size={20} />):
           ( <Heart className ='w-full h-full rounded-full  text-slate-300 hover:text-slate-400 hover:bg-slate-50 hover:fill-white p-2 duration-200'  size={20} />)}
          
