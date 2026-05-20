@@ -1,10 +1,8 @@
 import {Phone, Heart, ChevronRight, Trash2} from 'lucide-react';
 
-const ContactCard = ({id, name, phone, url, favourite, setContacts}) => {
+const ContactCard = ({id, name, phone, url, favourite, onDelete}) => {
 
-  function deleteContact(id){
-    setContacts(prev => prev.filter(c => c.id !== id))
-  }
+  
   
   return (
     <div className='w-full  p-3 bg-white border border-slate-300 rounded-2xl flex items-center justify-between cursor-pointer hover:border-indigo-300 hover:shadow-lg hover:shadow-indigo-50 group transition-colors duration-300'>
@@ -32,7 +30,7 @@ const ContactCard = ({id, name, phone, url, favourite, setContacts}) => {
           {favourite ? (<Heart className ='w-full h-full rounded-full text-red-500 fill-red-500 bg-red-50 hover:bg-red-100 transition-colors duration-300 p-2'  size={20} />):
           ( <Heart className ='w-full h-full rounded-full  text-slate-300 hover:text-slate-400 hover:bg-slate-50 hover:fill-white p-2 transition-colors duration-300'  size={20} />)}
         </button>
-        <button className ='h-full flex items-center justify-center' onClick={() => deleteContact(id)}>
+        <button className ='h-full flex items-center justify-center' onClick={() => onDelete(id)}>
           <Trash2 className ='w-full h-full rounded-full text-red-500 border border-red-200 bg-red-50 hover:bg-red-100 transition-colors duration-300 p-2'  size={18} />
         </button>
         <div className ='h-full flex items-center justify-center'>
