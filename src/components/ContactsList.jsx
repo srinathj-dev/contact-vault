@@ -1,6 +1,6 @@
 import ContactCard from "./ContactCard"
 
-const ContactsList = ({contacts}) => {
+const ContactsList = ({contacts, setContacts}) => {
   
   
   if (!contacts || contacts.length === 0) {
@@ -10,7 +10,7 @@ const ContactsList = ({contacts}) => {
     <>
       {contacts.map( (item) => { return(
         <div className=" w-full" key={item.id}> 
-          <ContactCard name={item.name} phone={item.phone} url={item.url} favourite={item.favourite} />
+          <ContactCard id={item.id} name={item.name} phone={item.phone} url={item.url} favourite={item.favourite} setContacts={setContacts}/>
         </div>
       )} )}
     </> 

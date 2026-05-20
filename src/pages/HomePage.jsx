@@ -10,7 +10,7 @@ const HomePage = () => {
   return (
       <div className="flex flex-col items-center gap-6">
         <AddContact  contacts={contacts} setContacts={setContacts} />
-        <ContactsList contacts ={contacts} />
+        <ContactsList contacts ={contacts} setContacts={setContacts}/>
       </div>
   )
 }
