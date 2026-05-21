@@ -11,16 +11,14 @@ const ContactsList = ({ contacts, onDelete }) => {
     <>
       {contacts.map((contact) => {
         return (
-          <div className=" w-full" key={contact.id}>
-            <ContactCard
-              id={contact.id}
-              name={contact.name}
-              phone={contact.phone}
-              url={contact.url}
-              favourite={contact.favourite}
-              onDelete={onDelete}
-            />
-          </div>
+          <ContactCard
+            keyValue={contact.id}
+            name={contact.name}
+            phone={contact.phone}
+            imageUrl={contact.imageUrl}
+            favourite={contact.favourite}
+            onDelete={onDelete}
+          />
         );
       })}
     </>

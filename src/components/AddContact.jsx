@@ -3,15 +3,12 @@ import { User, Phone, Mail, MapPin, Camera, Heart } from 'lucide-react';
 import FormInput from './FormInput';
 import validator from 'validator';
 
-
-
-const AddContact = ({contacts, setContacts,}) => {
-
-  const [imageUrl, setImageUrl] = useState("");
-  const [name, setName]  =  useState("");
-  const [phone, setPhone]  =  useState("");
-  const [email, setEmail]  =  useState("");
-  const [address, setAddress] = useState("");
+const AddContact = ({ onAddContact }) => {
+  const [imageUrl, setImageUrl] = useState('');
+  const [name, setName] = useState('');
+  const [phone, setPhone] = useState('');
+  const [email, setEmail] = useState('');
+  const [address, setAddress] = useState('');
   const [favourite, setFavourite] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
 
@@ -23,18 +20,21 @@ const AddContact = ({contacts, setContacts,}) => {
   }
 
   function handleSubmit(e) {
-   
     e.preventDefault();
     setIsSubmitted(true);
     // 1. name empty check
-   
-    if (name.trim() === '' || !validator.isMobilePhone(phone.trim(), 'en-IN') || !validator.isEmail(email)) {
-         return;
-        }
+
+    if (
+      name.trim() === '' ||
+      !validator.isMobilePhone(phone.trim(), 'en-IN') ||
+      !validator.isEmail(email)
+    ) {
+      return;
+    }
 
     // 2. contact object create
     const contact = {
-      url: imageUrl,
+      imageUrl: imageUrl,
       id: crypto.randomUUID(),
       name: name,
       phone: phone,
@@ -45,7 +45,7 @@ const AddContact = ({contacts, setContacts,}) => {
     };
 
     // 3. contacts lo add
-    setContacts([...contacts, contact]);
+    onAddContact(contact);
 
     // 4. inputs clear
     setImageUrl('');
@@ -57,7 +57,8 @@ const AddContact = ({contacts, setContacts,}) => {
     setFavourite(false);
   }
 
-  const isPhoneValid = isSubmitted && !validator.isMobilePhone(phone.trim(), 'en-IN');
+  const isPhoneValid =
+    isSubmitted && !validator.isMobilePhone(phone.trim(), 'en-IN');
   const isEmailValid = isSubmitted && !validator.isEmail(email);
 
   return (
@@ -85,8 +86,10 @@ const AddContact = ({contacts, setContacts,}) => {
             )}
           </div>
           <label
-            htmlFor="imageUpload" aria-label="Upload profile image"
-            className="w-10 h-10 rounded-full bg-indigo-600 border-3 border-white absolute bottom-2 right-1 flex  justify-center items-center cursor-pointer">
+            htmlFor="imageUpload"
+            aria-label="Upload profile image"
+            className="w-10 h-10 rounded-full bg-indigo-600 border-3 border-white absolute bottom-2 right-1 flex  justify-center items-center cursor-pointer"
+          >
             <Camera color="white" size={24} />
             <input
               type="file"
@@ -128,30 +131,32 @@ const AddContact = ({contacts, setContacts,}) => {
               icon={Phone}
               value={phone}
               onChange={setPhone}
-              required = "required"
-              hasError={isPhoneValid ? true : false }
+              required="required"
+              hasError={isPhoneValid ? true : false}
             />
             {isPhoneValid && (
-            <p className="text-xs text-red-500">
-              Enter a valid Indian mobile number
-            </p>)}
+              <p className="text-xs text-red-500">
+                Enter a valid Indian mobile number
+              </p>
+            )}
           </div>
 
           <div>
-          <FormInput
-            label="EMAIL"
-            id="email"
-            name="email"
-            placeholder="balaKrishna@gmail.com"
-            icon={Mail}
-            value={email}
-            onChange={setEmail}
-            hasError={isEmailValid ? true : false}
-          />
-          {isEmailValid && (
-            <p className="text-xs text-red-500">
-              Enter a valid Email Id Ex: asdfghjkl@asdf.com
-            </p>)}
+            <FormInput
+              label="EMAIL"
+              id="email"
+              name="email"
+              placeholder="balaKrishna@gmail.com"
+              icon={Mail}
+              value={email}
+              onChange={setEmail}
+              hasError={isEmailValid ? true : false}
+            />
+            {isEmailValid && (
+              <p className="text-xs text-red-500">
+                Enter a valid Email Id Ex: asdfghjkl@asdf.com
+              </p>
+            )}
           </div>
         </div>
 
@@ -188,7 +193,8 @@ const AddContact = ({contacts, setContacts,}) => {
           <label
             htmlFor="favButton"
             className={`w-12 h-6 transition-all duration-150 ease-in-out rounded-2xl relative cursor-pointer
-                        ${favourite ? 'bg-indigo-600' : 'bg-slate-300'}`}>
+                        ${favourite ? 'bg-indigo-600' : 'bg-slate-300'}`}
+          >
             <input
               type="checkbox"
               id="favButton"
@@ -199,14 +205,15 @@ const AddContact = ({contacts, setContacts,}) => {
 
             <div
               className={`absolute top-1 left-1 w-4 h-4 bg-white rounded-full transition-transform duration-150 ease-in-out
-                        ${favourite ? 'translate-x-4 sm:translate-x-6' : 'translate-x-0'}`}>
-            </div>
+                        ${favourite ? 'translate-x-4 sm:translate-x-6' : 'translate-x-0'}`}
+            ></div>
           </label>
         </div>
 
         <button
           type="submit"
-          className="p-3 rounded-xl bg-indigo-600 font-semibold text-white backdrop-blur-3xl text-nowrap cursor-pointer">
+          className="p-3 rounded-xl bg-indigo-600 font-semibold text-white backdrop-blur-3xl text-nowrap cursor-pointer"
+        >
           Create Contact
         </button>
       </form>
