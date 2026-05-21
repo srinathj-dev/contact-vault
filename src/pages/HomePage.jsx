@@ -1,4 +1,3 @@
-import { Key } from 'lucide-react';
 import AddContact from '../components/AddContact';
 import ContactsList from '../components/ContactsList';
 import { useState } from 'react';
