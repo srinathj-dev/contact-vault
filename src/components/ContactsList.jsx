@@ -1,22 +1,28 @@
-import ContactCard from "./ContactCard"
+import ContactCard from './ContactCard';
 
-const ContactsList = ({contacts}) => {
-  
-  
+const ContactsList = ({ contacts, onDelete }) => {
   if (!contacts || contacts.length === 0) {
-    return <p className="text-slate-400 text-sm italic">No contacts available.</p>;
+    return (
+      <p className="text-slate-400 text-sm italic">No contacts available.</p>
+    );
   }
-  return(
-    <>
-      {contacts.map( (item) => { return(
-        <div className=" w-full" key={item.id}> 
-          <ContactCard name={item.name} phone={item.phone} url={item.url} favourite={item.favourite} />
-        </div>
-      )} )}
-    </> 
-  
-  )
-  
-}
 
-export default ContactsList
+  return (
+    <>
+      {contacts.map((contact) => {
+        return (
+          <ContactCard
+            keyValue={contact.id}
+            name={contact.name}
+            phone={contact.phone}
+            imageUrl={contact.imageUrl}
+            favourite={contact.favourite}
+            onDelete={onDelete}
+          />
+        );
+      })}
+    </>
+  );
+};
+
+export default ContactsList;
