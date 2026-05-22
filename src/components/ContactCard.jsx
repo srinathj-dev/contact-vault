@@ -36,11 +36,9 @@ const ContactCard = ({ contact, onDelete, onEdit }) => {
       </div>
       <div className="flex items-center gap-2">
         <button className="h-full flex items-center justify-center">
-          {contact.favourite ? (
-            <Heart className="w-9 h-9 rounded-full text-red-500 fill-red-500 bg-red-50 hover:bg-red-100 transition-colors duration-300 p-2" />
-          ) : (
-            <Heart className="w-9 h-9 rounded-full  text-slate-300 hover:text-slate-400 hover:bg-slate-50 hover:fill-white p-2 transition-colors duration-300" />
-          )}
+          <Heart
+            className={`w-9 h-9 rounded-full ${contact.favourite ? 'text-red-500 fill-red-500 bg-red-50 hover:bg-red-100' : 'text-slate-300 hover:text-slate-400 hover:bg-slate-50 hover:fill-white p-2'} transition-colors duration-300 p-2`}
+          />
         </button>
         <button
           className="flex items-center justify-center rounded-full p-3 hover:bg-slate-50 transition-colors duration-300"
