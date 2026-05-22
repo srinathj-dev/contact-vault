@@ -1,9 +1,9 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { User, Phone, Mail, MapPin, Camera, Heart } from 'lucide-react';
 import FormInput from './FormInput';
 import validator from 'validator';
 
-const AddContact = ({ onAddContact }) => {
+const AddContact = ({ editingContact, onAddContact }) => {
   const [imageUrl, setImageUrl] = useState('');
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
@@ -19,35 +19,70 @@ const AddContact = ({ onAddContact }) => {
     setImageUrl(url);
   }
 
+  useEffect(() => {
+    if (editingContact) {
+      id: editingContact.id;
+      setImageUrl(editingContact.imageUrl || '');
+      setName(editingContact.name || '');
+      setPhone(editingContact.phone || '');
+      setEmail(editingContact.email || '');
+      setAddress(editingContact.address || '');
+      setFavourite(editingContact.favourite || false);
+    } else {
+      setImageUrl('');
+      setName('');
+      setPhone('');
+      setEmail('');
+      setAddress('');
+      setFavourite(false);
+    }
+  }, [editingContact]);
+
   function handleSubmit(e) {
     e.preventDefault();
     setIsSubmitted(true);
-    // 1. name empty check
 
+    // 1. name empty check
     if (
       name.trim() === '' ||
       !validator.isMobilePhone(phone.trim(), 'en-IN') ||
-      !validator.isEmail(email)
+      !validator.isEmail(email.trim())
     ) {
       return;
     }
 
     // 2. contact object create
-    const contact = {
-      imageUrl: imageUrl,
-      id: crypto.randomUUID(),
-      name: name,
-      phone: phone,
-      email: email,
-      address: address,
-      favourite: favourite,
-      createdAt: Date.now(),
-    };
+    if (!editingContact) {
+      const contact = {
+        imageUrl: imageUrl,
+        id: crypto.randomUUID(),
+        name: name,
+        phone: phone,
+        email: email,
+        address: address,
+        favourite: favourite,
+        createdAt: Date.now(),
+      };
 
-    // 3. contacts lo add
-    onAddContact(contact);
+      // 3. contacts adding
+      onAddContact(contact);
+    } else {
+      const contact = {
+        imageUrl: imageUrl,
+        id: editingContact.id,
+        name: name,
+        phone: phone,
+        email: email,
+        address: address,
+        favourite: favourite,
+        createdAt: editingContact.createdAt,
+      };
 
-    // 4. inputs clear
+      // 4. contacts update
+      onAddContact(contact);
+    }
+
+    // 5. inputs clear
     setImageUrl('');
     setName('');
     setPhone('');
@@ -58,8 +93,8 @@ const AddContact = ({ onAddContact }) => {
   }
 
   const isPhoneValid =
-    isSubmitted && !validator.isMobilePhone(phone.trim(), 'en-IN');
-  const isEmailValid = isSubmitted && !validator.isEmail(email);
+    isSubmitted && !validator.isMobilePhone(phone?.trim(), 'en-IN');
+  const isEmailValid = isSubmitted && !validator.isEmail(email?.trim());
 
   return (
     <div className="flex flex-col justify-start gap-6 border-2 border-slate-100 bg-white h-full rounded-2xl p-10">
@@ -71,8 +106,8 @@ const AddContact = ({ onAddContact }) => {
       </div>
 
       <div className="flex flex-col items-center text-xs gap-3">
-        <div className="w-[130px] h-[130px] flex relative ">
-          <div className="w-[120px] h-[120px] bg-slate-100 border-4 border-slate-50 rounded-full flex items-center justify-center hover:border-indigo-100 p-1">
+        <div className="w-32.5 h-32.5 flex relative ">
+          <div className="w-30 h-30 bg-slate-100 border-4 border-slate-50 rounded-full flex items-center justify-center hover:border-indigo-100 p-1">
             {imageUrl ? (
               <img
                 className="w-full h-full object-fit rounded-full"
@@ -90,7 +125,7 @@ const AddContact = ({ onAddContact }) => {
             aria-label="Upload profile image"
             className="w-10 h-10 rounded-full bg-indigo-600 border-3 border-white absolute bottom-2 right-1 flex  justify-center items-center cursor-pointer"
           >
-            <Camera color="white" size={24} />
+            <Camera color="white" size={19} />
             <input
               type="file"
               id="imageUpload"
@@ -180,7 +215,10 @@ const AddContact = ({ onAddContact }) => {
         <div className="flex items-center gap-2 px-3 rounded-xl border-2 bg-indigo-300/10 border-slate-100/40 justify-between py-4">
           <div className="flex">
             <span className="flex justify-center items-center bg-white p-2 rounded-lg">
-              <Heart color="#4f39f6" size={18} />
+              <Heart
+                className={`text-indigo-600 ${favourite ? 'fill-indigo-600' : 'fill-white'} transition-colors duration-300`}
+                size={18}
+              />
             </span>
             <div className="flex flex-col px-3">
               <h2 className="text-sm font-semibold">Favorite</h2>
@@ -192,7 +230,7 @@ const AddContact = ({ onAddContact }) => {
 
           <label
             htmlFor="favButton"
-            className={`w-12 h-6 transition-all duration-150 ease-in-out rounded-2xl relative cursor-pointer
+            className={`w-12 h-6 transition-all duration-150 ease-in-out rounded-2xl relative cursor-pointer 
                         ${favourite ? 'bg-indigo-600' : 'bg-slate-300'}`}
           >
             <input
@@ -204,7 +242,7 @@ const AddContact = ({ onAddContact }) => {
             />
 
             <div
-              className={`absolute top-1 left-1 w-4 h-4 bg-white rounded-full transition-transform duration-150 ease-in-out
+              className={`absolute top-1 left-1 w-4 h-4 bg-white rounded-full transition-transform duration-150 ease-in-out 
                         ${favourite ? 'translate-x-4 sm:translate-x-6' : 'translate-x-0'}`}
             ></div>
           </label>
@@ -220,5 +258,4 @@ const AddContact = ({ onAddContact }) => {
     </div>
   );
 };
-
 export default AddContact;
