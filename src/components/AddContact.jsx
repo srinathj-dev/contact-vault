@@ -252,7 +252,7 @@ const AddContact = ({ editingContact, onAddContact }) => {
           type="submit"
           className="p-3 rounded-xl bg-indigo-600 font-semibold text-white backdrop-blur-3xl text-nowrap cursor-pointer"
         >
-          Create Contact
+          {editingContact ? 'Update Contact' : 'Create Contact'}
         </button>
       </form>
     </div>

@@ -22,6 +22,11 @@ const HomePage = () => {
     setContacts((contacts) => [...contacts, contact]);
   }
 
+  function onCancel() {
+    setIsEdited(false);
+    setEditingContact(null);
+  }
+
   function editContact(contact) {
     setEditingContact(contact);
     setIsEdited(true);
@@ -34,6 +39,7 @@ const HomePage = () => {
           <button
             className=" h-9 rounded-lg text-indigo-600 border border-indigo-200 hover:bg-indigo-50 transition-colors duration-300 p-2 px-4 flex items-center justify-center"
             aria-label="Cancel Changes"
+            onClick={() => onCancel()}
           >
             cancel
           </button>
