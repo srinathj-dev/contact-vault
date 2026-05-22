@@ -8,7 +8,7 @@ const ContactsList = ({ contacts, onDelete, onEdit, display }) => {
   }
 
   return (
-    <div className={`flex flex-col gap-4 ${display}`}>
+    <div className={`w-full flex flex-col gap-4 ${display}`}>
       {contacts.map((contact) => {
         return (
           <ContactCard
