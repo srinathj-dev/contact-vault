@@ -18,8 +18,10 @@ const HomePage = () => {
   };
 
   function upsertContact(contact) {
-    setContacts((prev) => prev.filter((c) => c.id !== contact.id));
-    setContacts((contacts) => [...contacts, contact]);
+    setContacts((prev) => {
+      const withoutContact = prev.filter((c) => c.id !== contact.id);
+      return [...withoutContact, contact];
+    });
   }
 
   function onCancel() {
@@ -57,6 +59,7 @@ const HomePage = () => {
         contacts={contacts}
         onDelete={deleteContact}
         onEdit={editContact}
+        display={isEdited ? 'hidden' : 'flex'}
       />
     </div>
   );

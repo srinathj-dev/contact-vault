@@ -46,7 +46,7 @@ const AddContact = ({ editingContact, onAddContact }) => {
     if (
       name.trim() === '' ||
       !validator.isMobilePhone(phone.trim(), 'en-IN') ||
-      !validator.isEmail(email.trim())
+      (email != '' && !validator.isEmail(email?.trim()))
     ) {
       return;
     }
@@ -94,7 +94,8 @@ const AddContact = ({ editingContact, onAddContact }) => {
 
   const isPhoneValid =
     isSubmitted && !validator.isMobilePhone(phone?.trim(), 'en-IN');
-  const isEmailValid = isSubmitted && !validator.isEmail(email?.trim());
+  const isEmailNotValid =
+    isSubmitted && email != '' && !validator.isEmail(email?.trim());
 
   return (
     <div className="flex flex-col justify-start gap-6 border-2 border-slate-100 bg-white h-full rounded-2xl p-10">
@@ -185,9 +186,9 @@ const AddContact = ({ editingContact, onAddContact }) => {
               icon={Mail}
               value={email}
               onChange={setEmail}
-              hasError={isEmailValid ? true : false}
+              hasError={isEmailNotValid ? true : false}
             />
-            {isEmailValid && (
+            {isEmailNotValid && (
               <p className="text-xs text-red-500">
                 Enter a valid Email Id Ex: asdfghjkl@asdf.com
               </p>

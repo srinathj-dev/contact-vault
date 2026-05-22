@@ -1,6 +1,6 @@
 import ContactCard from './ContactCard';
 
-const ContactsList = ({ contacts, onDelete, onEdit }) => {
+const ContactsList = ({ contacts, onDelete, onEdit, display }) => {
   if (!contacts || contacts.length === 0) {
     return (
       <p className="text-slate-400 text-sm italic">No contacts available.</p>
@@ -8,7 +8,7 @@ const ContactsList = ({ contacts, onDelete, onEdit }) => {
   }
 
   return (
-    <>
+    <div className={`flex flex-col gap-4 ${display}`}>
       {contacts.map((contact) => {
         return (
           <ContactCard
@@ -19,7 +19,7 @@ const ContactsList = ({ contacts, onDelete, onEdit }) => {
           />
         );
       })}
-    </>
+    </div>
   );
 };
 
