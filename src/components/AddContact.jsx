@@ -20,22 +20,12 @@ const AddContact = ({ editingContact, onAddContact }) => {
   }
 
   useEffect(() => {
-    if (editingContact) {
-      id: editingContact.id;
-      setImageUrl(editingContact.imageUrl || '');
-      setName(editingContact.name || '');
-      setPhone(editingContact.phone || '');
-      setEmail(editingContact.email || '');
-      setAddress(editingContact.address || '');
-      setFavourite(editingContact.favourite || false);
-    } else {
-      setImageUrl('');
-      setName('');
-      setPhone('');
-      setEmail('');
-      setAddress('');
-      setFavourite(false);
-    }
+    setImageUrl(editingContact?.imageUrl || '');
+    setName(editingContact?.name || '');
+    setPhone(editingContact?.phone || '');
+    setEmail(editingContact?.email || '');
+    setAddress(editingContact?.address || '');
+    setFavourite(editingContact?.favourite || false);
   }, [editingContact]);
 
   function handleSubmit(e) {
@@ -52,37 +42,22 @@ const AddContact = ({ editingContact, onAddContact }) => {
     }
 
     // 2. contact object create
-    if (!editingContact) {
-      const contact = {
-        imageUrl: imageUrl,
-        id: crypto.randomUUID(),
-        name: name,
-        phone: phone,
-        email: email,
-        address: address,
-        favourite: favourite,
-        createdAt: Date.now(),
-      };
 
-      // 3. contacts adding
-      onAddContact(contact);
-    } else {
-      const contact = {
-        imageUrl: imageUrl,
-        id: editingContact.id,
-        name: name,
-        phone: phone,
-        email: email,
-        address: address,
-        favourite: favourite,
-        createdAt: editingContact.createdAt,
-      };
+    const contact = {
+      imageUrl: imageUrl,
+      id: editingContact?.id || crypto.randomUUID(),
+      name: name,
+      phone: phone,
+      email: email,
+      address: address,
+      favourite: favourite,
+      createdAt: editingContact?.createdAt || Date.now(),
+    };
 
-      // 4. contacts update
-      onAddContact(contact);
-    }
+    // 3. contacts update
+    onAddContact(contact);
 
-    // 5. inputs clear
+    // 4. inputs clear
     setImageUrl('');
     setName('');
     setPhone('');
