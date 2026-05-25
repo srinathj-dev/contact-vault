@@ -15,9 +15,9 @@ const HomePage = () => {
   function upsertContact(contact) {
     setContacts((prev) => {
       const withoutContact = prev.filter((c) => c.id !== contact.id);
-      setEditingContact(null);
       return [...withoutContact, contact];
     });
+    setEditingContact(null);
   }
 
   function onCancel() {
