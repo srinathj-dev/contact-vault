@@ -3,7 +3,7 @@ import { User, Phone, Mail, MapPin, Camera, Heart } from 'lucide-react';
 import FormInput from './FormInput';
 import validator from 'validator';
 
-const AddContact = ({ editingContact, onAddContact, isEdited }) => {
+const AddContact = ({ editingContact, onAddContact }) => {
   const [imageUrl, setImageUrl] = useState(editingContact?.imageUrl || '');
   const [name, setName] = useState(editingContact?.name || '');
   const [phone, setPhone] = useState(editingContact?.phone || '');
