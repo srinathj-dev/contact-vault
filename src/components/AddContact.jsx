@@ -51,15 +51,13 @@ const AddContact = ({ editingContact, onAddContact, isEdited }) => {
     onAddContact(contact);
 
     // 4. inputs clear
-    if (isEdited) {
-      setImageUrl('');
-      setName('');
-      setPhone('');
-      setEmail('');
-      setAddress('');
-      setIsSubmitted(false);
-      setFavourite(false);
-    }
+    setImageUrl('');
+    setName('');
+    setPhone('');
+    setEmail('');
+    setAddress('');
+    setIsSubmitted(false);
+    setFavourite(false);
   }
 
   const isPhoneValid =

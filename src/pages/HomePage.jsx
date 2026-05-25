@@ -51,8 +51,10 @@ const HomePage = () => {
         <></>
       )}
       <AddContact
+        key={editingContact?.id || crypto.randomUUID()}
         editingContact={editingContact}
         onAddContact={upsertContact}
+        isEdited={isEdited}
       />
       <ContactsList
         contacts={contacts}

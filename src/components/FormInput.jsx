@@ -24,7 +24,7 @@ const FormInput = ({
           type={type}
           name={name}
           placeholder={placeholder}
-          key={id}
+          id={id}
           className="input-primary"
           onChange={(e) => onChange(e.target.value)}
         />
