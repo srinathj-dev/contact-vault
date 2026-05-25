@@ -1,15 +1,17 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { User, Phone, Mail, MapPin, Camera, Heart } from 'lucide-react';
 import FormInput from './FormInput';
 import validator from 'validator';
 
-const AddContact = ({ editingContact, onAddContact }) => {
-  const [imageUrl, setImageUrl] = useState('');
-  const [name, setName] = useState('');
-  const [phone, setPhone] = useState('');
-  const [email, setEmail] = useState('');
-  const [address, setAddress] = useState('');
-  const [favourite, setFavourite] = useState(false);
+const AddContact = ({ editingContact, onAddContact, isEdited }) => {
+  const [imageUrl, setImageUrl] = useState(editingContact?.imageUrl || '');
+  const [name, setName] = useState(editingContact?.name || '');
+  const [phone, setPhone] = useState(editingContact?.phone || '');
+  const [email, setEmail] = useState(editingContact?.email || '');
+  const [address, setAddress] = useState(editingContact?.address || '');
+  const [favourite, setFavourite] = useState(
+    editingContact?.favourite || false,
+  );
   const [isSubmitted, setIsSubmitted] = useState(false);
 
   function handleImageChange(e) {
@@ -18,15 +20,6 @@ const AddContact = ({ editingContact, onAddContact }) => {
     const url = URL.createObjectURL(file);
     setImageUrl(url);
   }
-
-  useEffect(() => {
-    setImageUrl(editingContact?.imageUrl || '');
-    setName(editingContact?.name || '');
-    setPhone(editingContact?.phone || '');
-    setEmail(editingContact?.email || '');
-    setAddress(editingContact?.address || '');
-    setFavourite(editingContact?.favourite || false);
-  }, [editingContact]);
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -58,13 +51,15 @@ const AddContact = ({ editingContact, onAddContact }) => {
     onAddContact(contact);
 
     // 4. inputs clear
-    setImageUrl('');
-    setName('');
-    setPhone('');
-    setEmail('');
-    setAddress('');
-    setIsSubmitted(false);
-    setFavourite(false);
+    if (isEdited) {
+      setImageUrl('');
+      setName('');
+      setPhone('');
+      setEmail('');
+      setAddress('');
+      setIsSubmitted(false);
+      setFavourite(false);
+    }
   }
 
   const isPhoneValid =
