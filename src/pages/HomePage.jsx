@@ -1,25 +1,24 @@
 import AddContact from '../components/AddContact';
 import ContactsList from '../components/ContactsList';
 import DeleteButton from '../components/DeleteButton';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 
 const HomePage = () => {
   const [contacts, setContacts] = useState([]);
   const [isEdited, setIsEdited] = useState(false);
   const [editingContact, setEditingContact] = useState(null);
 
-  useEffect(() => {
-    setIsEdited(false);
-    setEditingContact(null);
-  }, [contacts]);
-
   let deleteContact = function (keyValue) {
     setContacts((prev) => prev.filter((c) => c.id !== keyValue));
+    setIsEdited(false);
+    setEditingContact(null);
   };
 
   function upsertContact(contact) {
     setContacts((prev) => {
       const withoutContact = prev.filter((c) => c.id !== contact.id);
+      setIsEdited(false);
+      setEditingContact(null);
       return [...withoutContact, contact];
     });
   }
@@ -43,7 +42,7 @@ const HomePage = () => {
             aria-label="Cancel Changes"
             onClick={() => onCancel()}
           >
-            cancel
+            Cancel
           </button>
 
           <DeleteButton onDelete={deleteContact} keyValue={editingContact.id} />

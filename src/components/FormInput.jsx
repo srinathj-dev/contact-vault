@@ -7,9 +7,6 @@ const FormInput = ({
   icon,
   value,
   hasError,
-  required,
-  pattern,
-  title,
   onChange,
 }) => {
   const Icon = icon;

@@ -36,7 +36,7 @@ const AddContact = ({ editingContact, onAddContact }) => {
     if (
       name.trim() === '' ||
       !validator.isMobilePhone(phone.trim(), 'en-IN') ||
-      (email != '' && !validator.isEmail(email?.trim()))
+      (email?.trim() && !validator.isEmail(email?.trim()))
     ) {
       return;
     }
@@ -142,7 +142,7 @@ const AddContact = ({ editingContact, onAddContact }) => {
               icon={Phone}
               value={phone}
               onChange={setPhone}
-              required="required"
+              required
               hasError={isPhoneValid ? true : false}
             />
             {isPhoneValid && (
