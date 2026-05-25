@@ -1,22 +1,61 @@
 import AddContact from '../components/AddContact';
 import ContactsList from '../components/ContactsList';
+import DeleteButton from '../components/DeleteButton';
 import { useState } from 'react';
 
 const HomePage = () => {
   const [contacts, setContacts] = useState([]);
+  const [editingContact, setEditingContact] = useState(null);
 
   let deleteContact = function (keyValue) {
     setContacts((prev) => prev.filter((c) => c.id !== keyValue));
+    setEditingContact(null);
   };
 
-  function handleAddContact(contact) {
-    setContacts((contacts) => [...contacts, contact]);
+  function upsertContact(contact) {
+    setContacts((prev) => {
+      const withoutContact = prev.filter((c) => c.id !== contact.id);
+      return [...withoutContact, contact];
+    });
+    setEditingContact(null);
+  }
+
+  function onCancel() {
+    setEditingContact(null);
+  }
+
+  function editContact(contact) {
+    setEditingContact(contact);
   }
 
   return (
     <div className="flex flex-col items-center gap-6">
-      <AddContact contacts={contacts} onAddContact={handleAddContact} />
-      <ContactsList contacts={contacts} onDelete={deleteContact} />
+      {editingContact ? (
+        <div className="w-full flex  justify-between px-4">
+          <button
+            className=" h-9 rounded-lg text-indigo-600 border border-indigo-200 hover:bg-indigo-50 transition-colors duration-300 p-2 px-4 flex items-center justify-center"
+            aria-label="Cancel Changes"
+            onClick={() => onCancel()}
+          >
+            Cancel
+          </button>
+
+          <DeleteButton onDelete={deleteContact} keyValue={editingContact.id} />
+        </div>
+      ) : (
+        <></>
+      )}
+      <AddContact
+        key={editingContact?.id || ''}
+        editingContact={editingContact}
+        onAddContact={upsertContact}
+      />
+      <ContactsList
+        contacts={contacts}
+        onDelete={deleteContact}
+        onEdit={editContact}
+        display={editingContact ? 'hidden' : 'flex'}
+      />
     </div>
   );
 };
