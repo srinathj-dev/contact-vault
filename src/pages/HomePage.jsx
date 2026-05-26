@@ -1,15 +1,26 @@
 import AddContact from '../components/AddContact';
 import ContactsList from '../components/ContactsList';
 import DeleteButton from '../components/DeleteButton';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 const HomePage = () => {
-  const [contacts, setContacts] = useState([]);
+  const [contacts, setContacts] = useState(() => {
+    const raw = localStorage.getItem('STORAGE_KEY');
+    if (!raw) return [];
+    try {
+      return JSON.parse(raw);
+    } catch {
+      return [];
+    }
+  });
+
   const [editingContact, setEditingContact] = useState(null);
 
   let deleteContact = function (keyValue) {
     setContacts((prev) => prev.filter((c) => c.id !== keyValue));
-    setEditingContact(null);
+    if (editingContact.id == keyValue) {
+      setEditingContact(null);
+    }
   };
 
   function upsertContact(contact) {
@@ -19,6 +30,10 @@ const HomePage = () => {
     });
     setEditingContact(null);
   }
+
+  useEffect(() => {
+    localStorage.setItem('STORAGE_KEY', JSON.stringify(contacts));
+  }, [contacts]);
 
   function onCancel() {
     setEditingContact(null);
