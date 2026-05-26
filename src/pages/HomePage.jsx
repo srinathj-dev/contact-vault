@@ -3,12 +3,19 @@ import ContactsList from '../components/ContactsList';
 import DeleteButton from '../components/DeleteButton';
 import { useState, useEffect } from 'react';
 
+const STORAGE_KEY = 'contactvault.contacts';
 const HomePage = () => {
   const [contacts, setContacts] = useState(() => {
-    const raw = localStorage.getItem('STORAGE_KEY');
+    const raw = localStorage.getItem(STORAGE_KEY);
     if (!raw) return [];
     try {
-      return JSON.parse(raw);
+      const contactsFromStorage = JSON.parse(raw);
+
+      if (Array.isArray(contactsFromStorage)) {
+        return contactsFromStorage;
+      } else {
+        return [];
+      }
     } catch {
       return [];
     }
@@ -18,7 +25,7 @@ const HomePage = () => {
 
   let deleteContact = function (keyValue) {
     setContacts((prev) => prev.filter((c) => c.id !== keyValue));
-    if (editingContact.id == keyValue) {
+    if (editingContact?.id == keyValue) {
       setEditingContact(null);
     }
   };
@@ -32,7 +39,7 @@ const HomePage = () => {
   }
 
   useEffect(() => {
-    localStorage.setItem('STORAGE_KEY', JSON.stringify(contacts));
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(contacts));
   }, [contacts]);
 
   function onCancel() {
