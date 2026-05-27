@@ -17,8 +17,13 @@ const AddContact = ({ editingContact, onAddContact }) => {
   function handleImageChange(e) {
     const file = e.target.files[0];
     if (!file) return;
-    const url = URL.createObjectURL(file);
-    setImageUrl(url);
+    const reader = new FileReader();
+
+    reader.onload = function () {
+      setImageUrl(reader.result);
+    };
+
+    reader.readAsDataURL(file);
   }
 
   function handleSubmit(e) {
