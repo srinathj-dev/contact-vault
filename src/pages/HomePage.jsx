@@ -4,7 +4,7 @@ import DeleteButton from '../components/DeleteButton';
 import { useState, useEffect } from 'react';
 
 const STORAGE_KEY = 'contactvault.contacts';
-const reader = new FileReader();
+
 const HomePage = () => {
   const [contacts, setContacts] = useState(() => {
     const raw = localStorage.getItem(STORAGE_KEY);

@@ -13,7 +13,6 @@ const AddContact = ({ editingContact, onAddContact }) => {
     editingContact?.favourite || false,
   );
   const [isSubmitted, setIsSubmitted] = useState(false);
-  const reader = new FileReader();
 
   function handleImageChange(e) {
     const file = e.target.files[0];
