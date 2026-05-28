@@ -2,7 +2,7 @@ import ContactCard from './ContactCard';
 import AddContactBtn from './AddContactBtn';
 import { BookUser } from 'lucide-react';
 
-const ContactsList = ({ contacts, onDelete, onEdit, goToAddContact }) => {
+const ContactsList = ({ contacts, onDelete, onEdit, gotoAddContact }) => {
   if (!contacts || contacts.length === 0) {
     return (
       <div className="w-3/6 h-svh flex flex-col justify-center items-center gap-4">
@@ -14,7 +14,7 @@ const ContactsList = ({ contacts, onDelete, onEdit, goToAddContact }) => {
           </p>
         </div>
         <div>
-          <AddContactBtn goToAddContact={goToAddContact} />
+          <AddContactBtn gotoAddContact={goToAddContact} />
         </div>
       </div>
     );
@@ -23,7 +23,7 @@ const ContactsList = ({ contacts, onDelete, onEdit, goToAddContact }) => {
   return (
     <div className={`w-full flex flex-col gap-4 `}>
       <div className="flex justify-end">
-        <AddContactBtn goToAddContact={goToAddContact} width="w-max" />
+        <AddContactBtn gotoAddContact={gotoAddContact} width="w-max" />
       </div>
       {contacts.map((contact) => {
         return (

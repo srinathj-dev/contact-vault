@@ -56,7 +56,7 @@ const HomePage = () => {
     setCustomRouter('contactsPage');
   };
 
-  const goToAddContact = () => {
+  const gotoAddContact = () => {
     setEditingContact(null);
     setCustomRouter('formPage');
   };
@@ -71,7 +71,7 @@ const HomePage = () => {
       case 'formPage':
         return (
           <AddContact
-            key={editingContact?.id || null}
+            key={editingContact?.id || 'new'}
             editingContact={editingContact}
             onAddContact={upsertContact}
             onCancel={onCancel}
@@ -86,7 +86,7 @@ const HomePage = () => {
             contacts={contacts}
             onDelete={deleteContact}
             onEdit={gotoEditContact}
-            goToAddContact={goToAddContact}
+            gotoAddContact={gotoAddContact}
           />
         );
 
