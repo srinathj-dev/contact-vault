@@ -15,8 +15,8 @@
  
 
   .btn-primary {
-    @apply bg-primary text-white p-1 px-3 rounded-sm font-brand transition-all duration-500 ease-in-out;
-    @apply hover:bg-blue-700 active:scale-95;
+    @apply bg-indigo-600 text-white p-1 px-3 rounded-sm font-brand transition-all duration-500 ease-in-out;
+    @apply hover:bg-indigo-800 active:scale-95;
   }
 
   .input-primary{
