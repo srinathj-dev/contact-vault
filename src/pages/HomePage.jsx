@@ -31,6 +31,7 @@ const HomePage = () => {
 
   let deleteContact = function (keyValue) {
     setContacts((prev) => prev.filter((c) => c.id !== keyValue));
+    setCustomRouter('contactsPage');
     if (editingContact?.id == keyValue) {
       setEditingContact(null);
     }
@@ -50,13 +51,15 @@ const HomePage = () => {
     setCustomRouter('contactsPage');
   }
 
-  function displayForm() {
+  function gotoDisplayForm() {
     setEditingContact(null);
     setCustomRouter('formPage');
   }
 
-  function editContact(contact) {
-    setEditingContact(contact);
+  function gotoEditContact(contact) {
+    setEditingContact((prev) => {
+      return contact;
+    });
     setCustomRouter('formPage');
   }
 
@@ -65,9 +68,11 @@ const HomePage = () => {
       case 'formPage':
         return (
           <AddContact
-            key={editingContact?.id || ''}
+            key={editingContact?.id || null}
             editingContact={editingContact}
             onAddContact={upsertContact}
+            onCancel={onCancel}
+            onDelete={deleteContact}
           />
         );
 
@@ -76,9 +81,9 @@ const HomePage = () => {
           <ContactsList
             contacts={contacts}
             onDelete={deleteContact}
-            onEdit={editContact}
+            onEdit={gotoEditContact}
             display={editingContact ? 'hidden' : 'flex'}
-            displayForm={displayForm}
+            displayForm={gotoDisplayForm}
           />
         );
 
@@ -89,19 +94,6 @@ const HomePage = () => {
 
   return (
     <div className="w-full md:w-4/6 lg:w-3/6  flex flex-col items-center gap-6">
-      {editingContact && (
-        <div className="w-full flex  justify-between px-4">
-          <button
-            className=" h-9 rounded-lg text-indigo-600 border border-indigo-200 hover:bg-indigo-50 transition-colors duration-300 p-2 px-4 flex items-center justify-center"
-            aria-label="Cancel Changes"
-            onClick={() => onCancel()}
-          >
-            Cancel
-          </button>
-
-          <DeleteButton onDelete={deleteContact} keyValue={editingContact.id} />
-        </div>
-      )}
       {renderContent()}
     </div>
   );

@@ -42,7 +42,12 @@ const ContactCard = ({ contact, onDelete, onEdit }) => {
         </button>
         <button
           className="flex items-center justify-center rounded-full p-3 hover:bg-slate-50 transition-colors duration-300"
-          onClick={() => onEdit(contact)}
+          onClick={() => {
+            console.log('Edit button clicked');
+            console.log('Contact:', contact);
+            console.log('onEdit function:', onEdit);
+            onEdit(contact);
+          }}
           aria-label="Edit Contact"
         >
           <Pencil className="text-slate-700 " size={18} />
