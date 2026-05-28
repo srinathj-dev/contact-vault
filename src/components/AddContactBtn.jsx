@@ -1,7 +1,7 @@
-const addContactBtn = ({ displayForm }) => {
+const AddContactBtn = ({ displayForm, width }) => {
   return (
     <button
-      className="btn-primary"
+      className={`btn-primary ${width}`}
       onClick={() => {
         displayForm();
       }}
@@ -11,4 +11,4 @@ const addContactBtn = ({ displayForm }) => {
   );
 };
 
-export default addContactBtn;
+export default AddContactBtn;

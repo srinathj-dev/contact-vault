@@ -65,9 +65,36 @@ const HomePage = () => {
     });
   }
 
+  function renderContent() {
+    switch (displayContactForm) {
+      case true:
+        return (
+          <AddContact
+            key={editingContact?.id || ''}
+            editingContact={editingContact}
+            onAddContact={upsertContact}
+          />
+        );
+
+      case false:
+        return (
+          <ContactsList
+            contacts={contacts}
+            onDelete={deleteContact}
+            onEdit={editContact}
+            display={editingContact ? 'hidden' : 'flex'}
+            displayForm={displayForm}
+          />
+        );
+
+      default:
+        return null;
+    }
+  }
+
   return (
-    <div className="flex flex-col items-center gap-6">
-      {editingContact ? (
+    <div className="w-full md:w-4/6 lg:w-3/6  flex flex-col items-center gap-6">
+      {editingContact && (
         <div className="w-full flex  justify-between px-4">
           <button
             className=" h-9 rounded-lg text-indigo-600 border border-indigo-200 hover:bg-indigo-50 transition-colors duration-300 p-2 px-4 flex items-center justify-center"
@@ -79,24 +106,8 @@ const HomePage = () => {
 
           <DeleteButton onDelete={deleteContact} keyValue={editingContact.id} />
         </div>
-      ) : (
-        <></>
       )}
-      {displayContactForm ? (
-        <AddContact
-          key={editingContact?.id || ''}
-          editingContact={editingContact}
-          onAddContact={upsertContact}
-        />
-      ) : (
-        <ContactsList
-          contacts={contacts}
-          onDelete={deleteContact}
-          onEdit={editContact}
-          display={editingContact ? 'hidden' : 'flex'}
-          displayForm={displayForm}
-        />
-      )}
+      {renderContent()}
     </div>
   );
 };

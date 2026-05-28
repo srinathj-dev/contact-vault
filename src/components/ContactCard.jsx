@@ -3,7 +3,7 @@ import DeleteButton from './DeleteButton';
 
 const ContactCard = ({ contact, onDelete, onEdit }) => {
   return (
-    <div className="w-full  p-3 bg-white border border-slate-300 rounded-2xl flex items-center justify-between cursor-pointer hover:border-indigo-300 hover:shadow-lg hover:shadow-indigo-50 group transition-colors duration-300">
+    <div className="w-full p-3 bg-white border border-slate-300 rounded-2xl flex items-center justify-between cursor-pointer hover:border-indigo-300 hover:shadow-lg hover:shadow-indigo-50 group transition-colors duration-300">
       <div className="flex gap-2">
         <div className="w-12 h-12 relative flex items-center justify-center">
           <Heart

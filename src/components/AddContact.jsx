@@ -71,7 +71,7 @@ const AddContact = ({ editingContact, onAddContact }) => {
     isSubmitted && email != '' && !validator.isEmail(email?.trim());
 
   return (
-    <div className="flex flex-col justify-start gap-6 border-2 border-slate-100 bg-white h-full rounded-2xl p-10">
+    <div className="h-max flex flex-col justify-start gap-6 border-2 border-slate-100 bg-white rounded-2xl p-8">
       <div className="w-full flex flex-col items-center">
         <h1 className="text-2xl font-semibold">New Contact</h1>
         <p className="font-light text-slate-500">

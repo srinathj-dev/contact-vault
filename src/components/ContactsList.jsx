@@ -5,7 +5,7 @@ import { BookUser } from 'lucide-react';
 const ContactsList = ({ contacts, onDelete, onEdit, display, displayForm }) => {
   if (!contacts || contacts.length === 0) {
     return (
-      <div className="w-3/5 flex flex-col justify-center items-center gap-4">
+      <div className="w-3/6 flex flex-col justify-center items-center gap-4">
         <BookUser className="w-24 h-24 text-slate-300 bg-slate-100 p-6 rounded-2xl rotate-6" />
         <div className="flex flex-col items-center justify-center gap-1">
           <h2 className="text-xl font-extrabold">Your vault is empty</h2>
@@ -22,7 +22,9 @@ const ContactsList = ({ contacts, onDelete, onEdit, display, displayForm }) => {
 
   return (
     <div className={`w-full flex flex-col gap-4 ${display}`}>
-      <AddContactBtn displayForm={displayForm} />
+      <div className="flex justify-end">
+        <AddContactBtn displayForm={displayForm} width="w-max" />
+      </div>
       {contacts.map((contact) => {
         return (
           <ContactCard
