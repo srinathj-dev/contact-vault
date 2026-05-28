@@ -22,8 +22,12 @@ const HomePage = () => {
     }
   });
 
-  const [displayContactForm, setDisplayContactForm] = useState(false);
+  const [customRouter, setCustomRouter] = useState('contactsPage');
   const [editingContact, setEditingContact] = useState(null);
+
+  useEffect(() => {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(contacts));
+  }, [contacts]);
 
   let deleteContact = function (keyValue) {
     setContacts((prev) => prev.filter((c) => c.id !== keyValue));
@@ -38,36 +42,27 @@ const HomePage = () => {
       return [...withoutContact, contact];
     });
     setEditingContact(null);
-    setDisplayContactForm((prev) => {
-      return !prev;
-    });
+    setCustomRouter('contactsPage');
   }
-
-  useEffect(() => {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(contacts));
-  }, [contacts]);
 
   function onCancel() {
     setEditingContact(null);
-    setDisplayContactForm(false);
+    setCustomRouter('contactsPage');
+  }
+
+  function displayForm() {
+    setEditingContact(null);
+    setCustomRouter('formPage');
   }
 
   function editContact(contact) {
     setEditingContact(contact);
-    setDisplayContactForm(true);
-  }
-
-  function displayForm() {
-    console.log('display form');
-    setEditingContact(null);
-    setDisplayContactForm((prev) => {
-      return !prev;
-    });
+    setCustomRouter('formPage');
   }
 
   function renderContent() {
-    switch (displayContactForm) {
-      case true:
+    switch (customRouter) {
+      case 'formPage':
         return (
           <AddContact
             key={editingContact?.id || ''}
@@ -76,7 +71,7 @@ const HomePage = () => {
           />
         );
 
-      case false:
+      case 'contactsPage':
         return (
           <ContactsList
             contacts={contacts}
