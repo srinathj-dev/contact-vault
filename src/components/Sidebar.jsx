@@ -1,5 +1,3 @@
-import AddContactBtn from './AddContactBtn';
-
 const Sidebar = () => {
   // here requirement is vertical alignment of elements with gap-2 using grid is easy to understand,
   // grid is for vertical allignment gap-2 is for gap,

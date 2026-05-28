@@ -1,6 +1,6 @@
 import AddContact from '../components/AddContact';
 import ContactsList from '../components/ContactsList';
-import DeleteButton from '../components/DeleteButton';
+
 import { useState, useEffect } from 'react';
 
 const STORAGE_KEY = 'contactvault.contacts';
