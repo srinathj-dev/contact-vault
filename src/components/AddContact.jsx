@@ -4,7 +4,13 @@ import FormInput from './FormInput';
 import validator from 'validator';
 import DeleteButton from './DeleteButton';
 
-const AddContact = ({ editingContact, onAddContact, onCancel, onDelete }) => {
+const AddContact = ({
+  editingContact,
+  onAddContact,
+  onCancel,
+  onDelete,
+  gotoContactsPage,
+}) => {
   const [imageUrl, setImageUrl] = useState(editingContact?.imageUrl || '');
   const [name, setName] = useState(editingContact?.name || '');
   const [phone, setPhone] = useState(editingContact?.phone || '');
@@ -82,7 +88,11 @@ const AddContact = ({ editingContact, onAddContact, onCancel, onDelete }) => {
           Cancel
         </button>
         {editingContact && (
-          <DeleteButton onDelete={onDelete} keyValue={editingContact.id} />
+          <DeleteButton
+            onDelete={onDelete}
+            gotoContactsPage={gotoContactsPage}
+            keyValue={editingContact.id}
+          />
         )}
       </div>
       <div className="h-max flex flex-col justify-start gap-6 border-2 border-slate-100 bg-white rounded-2xl p-8">

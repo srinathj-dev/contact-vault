@@ -29,39 +29,42 @@ const HomePage = () => {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(contacts));
   }, [contacts]);
 
-  let deleteContact = function (keyValue) {
+  const deleteContact = (keyValue) => {
     setContacts((prev) => prev.filter((c) => c.id !== keyValue));
-    setCustomRouter('contactsPage');
+
     if (editingContact?.id == keyValue) {
       setEditingContact(null);
     }
   };
 
-  function upsertContact(contact) {
+  const gotoContactsPage = () => {
+    setCustomRouter('contactsPage');
+  };
+
+  const upsertContact = (contact) => {
     setContacts((prev) => {
       const withoutContact = prev.filter((c) => c.id !== contact.id);
       return [...withoutContact, contact];
     });
+
     setEditingContact(null);
     setCustomRouter('contactsPage');
-  }
+  };
 
-  function onCancel() {
+  const onCancel = () => {
     setEditingContact(null);
     setCustomRouter('contactsPage');
-  }
+  };
 
-  function gotoDisplayForm() {
+  const goToAddContact = () => {
     setEditingContact(null);
     setCustomRouter('formPage');
-  }
+  };
 
-  function gotoEditContact(contact) {
-    setEditingContact((prev) => {
-      return contact;
-    });
+  const gotoEditContact = (contact) => {
+    setEditingContact(contact);
     setCustomRouter('formPage');
-  }
+  };
 
   function renderContent() {
     switch (customRouter) {
@@ -73,6 +76,7 @@ const HomePage = () => {
             onAddContact={upsertContact}
             onCancel={onCancel}
             onDelete={deleteContact}
+            gotoContactsPage={gotoContactsPage}
           />
         );
 
@@ -82,8 +86,7 @@ const HomePage = () => {
             contacts={contacts}
             onDelete={deleteContact}
             onEdit={gotoEditContact}
-            display={editingContact ? 'hidden' : 'flex'}
-            displayForm={gotoDisplayForm}
+            goToAddContact={goToAddContact}
           />
         );
 

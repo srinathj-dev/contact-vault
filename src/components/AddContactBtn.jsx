@@ -1,9 +1,9 @@
-const AddContactBtn = ({ displayForm, width }) => {
+const AddContactBtn = ({ goToAddContact, width }) => {
   return (
     <button
       className={`btn-primary ${width}`}
       onClick={() => {
-        displayForm();
+        goToAddContact();
       }}
     >
       Add Contact
