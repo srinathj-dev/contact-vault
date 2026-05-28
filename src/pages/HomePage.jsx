@@ -22,6 +22,7 @@ const HomePage = () => {
     }
   });
 
+  const [displayContactForm, setDisplayContactForm] = useState(false);
   const [editingContact, setEditingContact] = useState(null);
 
   let deleteContact = function (keyValue) {
@@ -37,6 +38,9 @@ const HomePage = () => {
       return [...withoutContact, contact];
     });
     setEditingContact(null);
+    setDisplayContactForm((prev) => {
+      return !prev;
+    });
   }
 
   useEffect(() => {
@@ -45,10 +49,20 @@ const HomePage = () => {
 
   function onCancel() {
     setEditingContact(null);
+    setDisplayContactForm(false);
   }
 
   function editContact(contact) {
     setEditingContact(contact);
+    setDisplayContactForm(true);
+  }
+
+  function displayForm() {
+    console.log('display form');
+    setEditingContact(null);
+    setDisplayContactForm((prev) => {
+      return !prev;
+    });
   }
 
   return (
@@ -68,17 +82,21 @@ const HomePage = () => {
       ) : (
         <></>
       )}
-      <AddContact
-        key={editingContact?.id || ''}
-        editingContact={editingContact}
-        onAddContact={upsertContact}
-      />
-      <ContactsList
-        contacts={contacts}
-        onDelete={deleteContact}
-        onEdit={editContact}
-        display={editingContact ? 'hidden' : 'flex'}
-      />
+      {displayContactForm ? (
+        <AddContact
+          key={editingContact?.id || ''}
+          editingContact={editingContact}
+          onAddContact={upsertContact}
+        />
+      ) : (
+        <ContactsList
+          contacts={contacts}
+          onDelete={deleteContact}
+          onEdit={editContact}
+          display={editingContact ? 'hidden' : 'flex'}
+          displayForm={displayForm}
+        />
+      )}
     </div>
   );
 };
