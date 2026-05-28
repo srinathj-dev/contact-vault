@@ -14,7 +14,7 @@ const ContactsList = ({ contacts, onDelete, onEdit, gotoAddContact }) => {
           </p>
         </div>
         <div>
-          <AddContactBtn gotoAddContact={goToAddContact} />
+          <AddContactBtn gotoAddContact={gotoAddContact} />
         </div>
       </div>
     );
