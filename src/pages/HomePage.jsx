@@ -25,6 +25,9 @@ const HomePage = () => {
   const [customRouter, setCustomRouter] = useState('contactsPage');
   const [editingContact, setEditingContact] = useState(null);
 
+  // const [visibleContacts, setVisibleContacts] = useState([]);
+  const [searchInput, setSearchInput] = useState('');
+
   useEffect(() => {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(contacts));
   }, [contacts]);
@@ -66,6 +69,10 @@ const HomePage = () => {
     setCustomRouter('formPage');
   };
 
+  const visibleContacts = contacts.filter((c) =>
+    c.name.toLowerCase().includes(searchInput.trim().toLowerCase()),
+  );
+
   function renderContent() {
     switch (customRouter) {
       case 'formPage':
@@ -83,7 +90,10 @@ const HomePage = () => {
       case 'contactsPage':
         return (
           <ContactsList
-            contacts={contacts}
+            value={searchInput}
+            setSearchInput={setSearchInput}
+            searchInput={searchInput}
+            contacts={visibleContacts}
             onDelete={deleteContact}
             onEdit={gotoEditContact}
             gotoAddContact={gotoAddContact}

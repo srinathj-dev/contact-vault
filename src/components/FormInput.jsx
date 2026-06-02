@@ -25,7 +25,7 @@ const FormInput = ({
           name={name}
           placeholder={placeholder}
           id={id}
-          className="input-primary"
+          className="input-primary w-full"
           onChange={(e) => onChange(e.target.value)}
         />
       </div>
