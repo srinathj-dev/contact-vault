@@ -24,8 +24,6 @@ const HomePage = () => {
 
   const [customRouter, setCustomRouter] = useState('contactsPage');
   const [editingContact, setEditingContact] = useState(null);
-
-  // const [visibleContacts, setVisibleContacts] = useState([]);
   const [searchInput, setSearchInput] = useState('');
 
   useEffect(() => {
