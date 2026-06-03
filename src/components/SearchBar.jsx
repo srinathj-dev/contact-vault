@@ -1,5 +1,5 @@
 import { Search } from 'lucide-react';
-const SearchBar = ({ onChange, value, handleKeyDown, inputRef }) => {
+const SearchBar = ({ onChange, value, inputRef }) => {
   return (
     <div
       className={
@@ -15,7 +15,6 @@ const SearchBar = ({ onChange, value, handleKeyDown, inputRef }) => {
         placeholder="Search contacts... (Press / to focus)"
         className={'input-primary w-full'}
         onChange={(e) => onChange(e.target.value)}
-        onKeyDown={handleKeyDown}
       />
     </div>
   );
