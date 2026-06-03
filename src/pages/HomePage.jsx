@@ -1,7 +1,7 @@
 import AddContact from '../components/AddContact';
 import ContactsList from '../components/ContactsList';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 
 const STORAGE_KEY = 'contactvault.contacts';
 
@@ -25,10 +25,31 @@ const HomePage = () => {
   const [customRouter, setCustomRouter] = useState('contactsPage');
   const [editingContact, setEditingContact] = useState(null);
   const [searchInput, setSearchInput] = useState('');
+  const inputRef = useRef(null);
 
   useEffect(() => {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(contacts));
   }, [contacts]);
+
+  useEffect(() => {
+    const handleKeyDown = (event) => {
+      const activeTagName = document.activeElement?.tagName;
+      if (activeTagName === 'INPUT' || activeTagName === 'TEXTAREA') {
+        return;
+      }
+
+      if (event.key === '/') {
+        event.preventDefault();
+        inputRef.current?.focus();
+      }
+    };
+
+    document.addEventListener('keydown', handleKeyDown);
+
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown);
+    };
+  }, []);
 
   const deleteContact = (keyValue) => {
     setContacts((prev) => prev.filter((c) => c.id !== keyValue));
@@ -90,11 +111,11 @@ const HomePage = () => {
           <ContactsList
             value={searchInput}
             setSearchInput={setSearchInput}
-            searchInput={searchInput}
             contacts={visibleContacts}
             onDelete={deleteContact}
             onEdit={gotoEditContact}
             gotoAddContact={gotoAddContact}
+            inputRef={inputRef}
           />
         );
 
