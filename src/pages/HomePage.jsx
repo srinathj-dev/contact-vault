@@ -1,7 +1,7 @@
 import AddContact from '../components/AddContact';
 import ContactsList from '../components/ContactsList';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 
 const STORAGE_KEY = 'contactvault.contacts';
 
@@ -24,10 +24,32 @@ const HomePage = () => {
 
   const [customRouter, setCustomRouter] = useState('contactsPage');
   const [editingContact, setEditingContact] = useState(null);
+  const [searchInput, setSearchInput] = useState('');
+  const inputRef = useRef(null);
 
   useEffect(() => {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(contacts));
   }, [contacts]);
+
+  useEffect(() => {
+    const handleKeyDown = (event) => {
+      const activeTagName = document.activeElement?.tagName;
+      if (activeTagName === 'INPUT' || activeTagName === 'TEXTAREA') {
+        return;
+      }
+
+      if (event.key === '/') {
+        event.preventDefault();
+        inputRef.current?.focus();
+      }
+    };
+
+    document.addEventListener('keydown', handleKeyDown);
+
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown);
+    };
+  }, []);
 
   const deleteContact = (keyValue) => {
     setContacts((prev) => prev.filter((c) => c.id !== keyValue));
@@ -66,6 +88,10 @@ const HomePage = () => {
     setCustomRouter('formPage');
   };
 
+  const visibleContacts = contacts.filter((c) =>
+    c.name.toLowerCase().includes(searchInput.trim().toLowerCase()),
+  );
+
   function renderContent() {
     switch (customRouter) {
       case 'formPage':
@@ -83,10 +109,13 @@ const HomePage = () => {
       case 'contactsPage':
         return (
           <ContactsList
-            contacts={contacts}
+            value={searchInput}
+            setSearchInput={setSearchInput}
+            contacts={visibleContacts}
             onDelete={deleteContact}
             onEdit={gotoEditContact}
             gotoAddContact={gotoAddContact}
+            inputRef={inputRef}
           />
         );
 
@@ -96,7 +125,7 @@ const HomePage = () => {
   }
 
   return (
-    <div className="w-full md:w-4/6 lg:w-3/6  flex flex-col items-center gap-6">
+    <div className="w-full md:w-4/6 lg:w-3/6 h-10/12  flex flex-col items-center gap-6">
       {renderContent()}
     </div>
   );
