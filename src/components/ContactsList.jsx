@@ -25,43 +25,45 @@ const ContactsList = ({
           inputRef={inputRef}
         />
       </div>
-
-      {!contacts || (contacts.length === 0 && value.length === 0) ? (
-        <div className="w-3/6 h-full flex flex-col justify-center items-center place-self-center gap-4">
-          <BookUser className="w-24 h-24 text-slate-300 bg-slate-100 p-6 rounded-2xl rotate-6" />
-          <div className="flex flex-col items-center justify-center gap-1">
-            <h2 className="text-xl font-extrabold">Your vault is empty</h2>
-            <p className="text-slate-500 text-sm text-wrap text-center">
-              Start building your network by adding your first contact.
-            </p>
-          </div>
-          <div>
-            <AddContactBtn gotoAddContact={gotoAddContact} />
-          </div>
-        </div>
-      ) : (
-        <div className={`w-full h-full flex flex-col items-center gap-4 `}>
-          {contacts.length === 0 && value.length > 0 ? (
-            <div className="w-3/6 h-full flex flex-col justify-center items-center place-self-center gap-4">
+      <div className="w-full h-full flex flex-col items-center gap-4">
+        {!contacts || contacts.length === 0 ? (
+          <>
+            <div className="w-full h-2/4 flex justify-center items-end">
               <BookUser className="w-24 h-24 text-slate-300 bg-slate-100 p-6 rounded-2xl rotate-6" />
-              <div className="flex flex-col items-center justify-center gap-1">
+            </div>
+            {value.length === 0 ? (
+              <div className="w-full h-2/4 flex flex-col items-center justify-start gap-1">
+                <div className="w-full flex flex-col items-center justify-center gap-1">
+                  <h2 className="text-xl font-extrabold">
+                    Your vault is empty
+                  </h2>
+                  <p className="text-slate-500 text-sm text-wrap text-center">
+                    Start building your network by adding your first contact.
+                  </p>
+                </div>
+                <div>
+                  <AddContactBtn gotoAddContact={gotoAddContact} />
+                </div>
+              </div>
+            ) : (
+              <div className="w-full h-2/4 flex flex-col items-center justify-start">
                 <h2 className="text-xl font-bold">No Contact Found</h2>
               </div>
-            </div>
-          ) : (
-            contacts.map((contact) => {
-              return (
-                <ContactCard
-                  key={contact.id}
-                  contact={contact}
-                  onDelete={onDelete}
-                  onEdit={onEdit}
-                />
-              );
-            })
-          )}
-        </div>
-      )}
+            )}
+          </>
+        ) : (
+          contacts.map((contact) => {
+            return (
+              <ContactCard
+                key={contact.id}
+                contact={contact}
+                onDelete={onDelete}
+                onEdit={onEdit}
+              />
+            );
+          })
+        )}
+      </div>
     </div>
   );
 };
