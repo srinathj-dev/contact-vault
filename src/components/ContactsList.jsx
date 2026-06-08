@@ -29,7 +29,7 @@ const ContactsList = ({
           inputRef={inputRef}
         />
       </div>
-      <div className="flex place-self-start ml-2 rounded-md gap-[1px] p-px bg-slate-200">
+      <div className="flex place-self-start rounded-md gap-[1px] p-px bg-slate-200">
         <FilterButton
           filteringContacts={filteringContacts}
           filterState={filterState}
@@ -41,7 +41,7 @@ const ContactsList = ({
           filterButtonName="Favorites"
         />
       </div>
-      <div className="w-full h-full flex flex-col items-center gap-4 p-2 overflow-y-scroll">
+      <div className="w-full h-full flex flex-col items-center gap-4  overflow-y-scroll">
         {!contacts || contacts.length === 0 ? (
           <>
             <div className="w-full h-2/4 flex justify-center items-end">

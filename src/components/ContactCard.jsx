@@ -4,7 +4,6 @@ import React from 'react';
 import { useMemo } from 'react';
 const ContactCard = React.memo(
   ({ contact, onDelete, onEdit, onToggleFavorites }) => {
-    console.log('contact id: ', contact.id);
     return (
       <div className="w-full p-2 bg-white border border-slate-300 rounded-2xl flex items-center justify-between cursor-pointer hover:border-indigo-300 hover:shadow-lg hover:shadow-indigo-50 group transition-colors duration-300">
         <div className="flex gap-2">
