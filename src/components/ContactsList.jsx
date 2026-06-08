@@ -1,6 +1,7 @@
 import ContactCard from './ContactCard';
 import AddContactBtn from './AddContactBtn';
 import SearchBar from './SearchBar';
+import FilterButton from './FilterButton';
 
 import { BookUser } from 'lucide-react';
 
@@ -12,6 +13,9 @@ const ContactsList = ({
   value,
   setSearchInput,
   inputRef,
+  filteringContacts,
+  filterState,
+  onToggleFavorites,
 }) => {
   return (
     <div className={`w-full h-full flex flex-col items-center gap-4 `}>
@@ -25,15 +29,27 @@ const ContactsList = ({
           inputRef={inputRef}
         />
       </div>
-      <div className="w-full h-full flex flex-col items-center gap-4">
+      <div className="flex place-self-start ml-2 rounded-md gap-[1px] p-px bg-slate-200">
+        <FilterButton
+          filteringContacts={filteringContacts}
+          filterState={filterState}
+          filterButtonName="All"
+        />
+        <FilterButton
+          filteringContacts={filteringContacts}
+          filterState={filterState}
+          filterButtonName="Favorites"
+        />
+      </div>
+      <div className="w-full h-full flex flex-col items-center gap-4 p-2 overflow-y-scroll">
         {!contacts || contacts.length === 0 ? (
           <>
             <div className="w-full h-2/4 flex justify-center items-end">
-              <BookUser className="w-24 h-24 text-slate-300 bg-slate-100 p-6 rounded-2xl rotate-6" />
+              <BookUser className="w-24 h-24 text-slate-300 bg-slate-100 p-6 rounded-2xl rotate-6 drop-shadow-lg drop-shadow-slate-300/50" />
             </div>
             {value.length === 0 ? (
-              <div className="w-full h-2/4 flex flex-col items-center justify-start gap-1">
-                <div className="w-full flex flex-col items-center justify-center gap-1">
+              <div className="w-full h-2/4 flex flex-col items-center justify-start gap-2">
+                <div className="flex flex-col items-center justify-center ">
                   <h2 className="text-xl font-extrabold">
                     Your vault is empty
                   </h2>
@@ -51,7 +67,7 @@ const ContactsList = ({
               </div>
             )}
           </>
-        ) : (
+        ) : filterState === 'All' ? (
           contacts.map((contact) => {
             return (
               <ContactCard
@@ -59,9 +75,23 @@ const ContactsList = ({
                 contact={contact}
                 onDelete={onDelete}
                 onEdit={onEdit}
+                onToggleFavorites={onToggleFavorites}
               />
             );
           })
+        ) : (
+          filterState === 'Favorites' &&
+          contacts
+            .filter((contact) => contact.favourite)
+            .map((contact) => (
+              <ContactCard
+                key={contact.id}
+                contact={contact}
+                onDelete={onDelete}
+                onEdit={onEdit}
+                onToggleFavorites={onToggleFavorites}
+              />
+            ))
         )}
       </div>
     </div>
