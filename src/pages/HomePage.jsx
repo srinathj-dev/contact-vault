@@ -50,13 +50,16 @@ const HomePage = () => {
     return () => document.removeEventListener('keydown', handleKeyDown);
   }, []);
 
-  const deleteContact = useCallback((keyValue) => {
-    setContacts((prev) => prev.filter((c) => c.id !== keyValue));
+  const deleteContact = useCallback(
+    (keyValue) => {
+      setContacts((prev) => prev.filter((c) => c.id !== keyValue));
 
-    if (editingContact?.id == keyValue) {
-      setEditingContact(null);
-    }
-  }, []);
+      if (editingContact?.id == keyValue) {
+        setEditingContact(null);
+      }
+    },
+    [editingContact],
+  );
 
   const gotoContactsPage = () => {
     setCustomRouter('contactsPage');

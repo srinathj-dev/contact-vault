@@ -1,7 +1,7 @@
 import { Phone, Heart, ChevronRight, Pencil } from 'lucide-react';
 import DeleteButton from './DeleteButton';
 import React from 'react';
-import { useMemo } from 'react';
+
 const ContactCard = React.memo(
   ({ contact, onDelete, onEdit, onToggleFavorites }) => {
     return (
