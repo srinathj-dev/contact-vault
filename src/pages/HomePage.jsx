@@ -96,7 +96,7 @@ const HomePage = () => {
         .toLowerCase()
         .includes(searchInput.trim().toLowerCase());
 
-      const isFavorite =
+      const isFavorite_when_favoriteFilter =
         filterState == 'Favorites' ? c.favourite == true : true;
 
       return isSearchMatch && isFavorite;
