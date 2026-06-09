@@ -1,7 +1,7 @@
 import AddContact from '../components/AddContact';
 import ContactsList from '../components/ContactsList';
 
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useMemo } from 'react';
 
 const STORAGE_KEY = 'contactvault.contacts';
 
@@ -25,6 +25,7 @@ const HomePage = () => {
   const [customRouter, setCustomRouter] = useState('contactsPage');
   const [editingContact, setEditingContact] = useState(null);
   const [searchInput, setSearchInput] = useState('');
+  const [filterState, setFilterState] = useState('All');
   const inputRef = useRef(null);
 
   useEffect(() => {
@@ -46,9 +47,7 @@ const HomePage = () => {
 
     document.addEventListener('keydown', handleKeyDown);
 
-    return () => {
-      document.removeEventListener('keydown', handleKeyDown);
-    };
+    return () => document.removeEventListener('keydown', handleKeyDown);
   }, []);
 
   const deleteContact = (keyValue) => {
@@ -65,8 +64,11 @@ const HomePage = () => {
 
   const upsertContact = (contact) => {
     setContacts((prev) => {
-      const withoutContact = prev.filter((c) => c.id !== contact.id);
-      return [...withoutContact, contact];
+      const exists = prev.some((c) => c.id === contact.id);
+      if (exists) {
+        return prev.map((c) => (c.id === contact.id ? contact : c));
+      }
+      return [...prev, contact];
     });
 
     setEditingContact(null);
@@ -88,9 +90,34 @@ const HomePage = () => {
     setCustomRouter('formPage');
   };
 
-  const visibleContacts = contacts.filter((c) =>
-    c.name.toLowerCase().includes(searchInput.trim().toLowerCase()),
-  );
+  const visibleContacts = useMemo(() => {
+    return contacts.filter((c) => {
+      const isSearchMatch = c.name
+        .toLowerCase()
+        .includes(searchInput.trim().toLowerCase());
+
+      const isFavorite_when_favoriteFilter =
+        filterState == 'Favorites' ? c.favourite == true : true;
+
+      return isSearchMatch && isFavorite;
+    });
+  }, [contacts, filterState, searchInput]);
+
+  const filteringContacts = (newValue) => {
+    setFilterState(newValue);
+  };
+
+  const onToggleFavorites = (contact) => {
+    setContacts((users) => {
+      const toogleFav = users.map((user) => {
+        if (user.id === contact.id) {
+          return { ...user, favourite: !user.favourite };
+        }
+        return user;
+      });
+      return toogleFav;
+    });
+  };
 
   function renderContent() {
     switch (customRouter) {
@@ -116,6 +143,9 @@ const HomePage = () => {
             onEdit={gotoEditContact}
             gotoAddContact={gotoAddContact}
             inputRef={inputRef}
+            filteringContacts={filteringContacts}
+            filterState={filterState}
+            onToggleFavorites={onToggleFavorites}
           />
         );
 
@@ -125,7 +155,7 @@ const HomePage = () => {
   }
 
   return (
-    <div className="w-full md:w-4/6 lg:w-3/6 h-10/12  flex flex-col items-center gap-6">
+    <div className="w-full md:w-4/6 lg:w-7/12 xl:w-6/12 2xl:w-5/12 h-11/12 flex flex-col items-center gap-6">
       {renderContent()}
     </div>
   );
