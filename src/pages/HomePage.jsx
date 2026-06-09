@@ -1,7 +1,7 @@
 import AddContact from '../components/AddContact';
 import ContactsList from '../components/ContactsList';
 
-import { useState, useEffect, useRef, useCallback, useMemo } from 'react';
+import { useState, useEffect, useRef, useMemo } from 'react';
 
 const STORAGE_KEY = 'contactvault.contacts';
 
@@ -50,16 +50,13 @@ const HomePage = () => {
     return () => document.removeEventListener('keydown', handleKeyDown);
   }, []);
 
-  const deleteContact = useCallback(
-    (keyValue) => {
-      setContacts((prev) => prev.filter((c) => c.id !== keyValue));
+  const deleteContact = (keyValue) => {
+    setContacts((prev) => prev.filter((c) => c.id !== keyValue));
 
-      if (editingContact?.id == keyValue) {
-        setEditingContact(null);
-      }
-    },
-    [editingContact],
-  );
+    if (editingContact?.id == keyValue) {
+      setEditingContact(null);
+    }
+  };
 
   const gotoContactsPage = () => {
     setCustomRouter('contactsPage');
@@ -67,8 +64,11 @@ const HomePage = () => {
 
   const upsertContact = (contact) => {
     setContacts((prev) => {
-      const withoutContact = prev.filter((c) => c.id !== contact.id);
-      return [...withoutContact, contact];
+      const exists = prev.some((c) => c.id === contact.id);
+      if (exists) {
+        return prev.map((c) => (c.id === contact.id ? contact : c));
+      }
+      return [...prev, contact];
     });
 
     setEditingContact(null);
@@ -85,22 +85,29 @@ const HomePage = () => {
     setCustomRouter('formPage');
   };
 
-  const gotoEditContact = useCallback((contact) => {
+  const gotoEditContact = (contact) => {
     setEditingContact(contact);
     setCustomRouter('formPage');
-  }, []);
+  };
 
   const visibleContacts = useMemo(() => {
-    return contacts.filter((c) =>
-      c.name.toLowerCase().includes(searchInput.trim().toLowerCase()),
-    );
-  }, [contacts, searchInput]);
+    return contacts.filter((c) => {
+      const isSearchMatch = c.name
+        .toLowerCase()
+        .includes(searchInput.trim().toLowerCase());
 
-  const filteringContacts = useCallback((newValue) => {
+      const isFavorite =
+        filterState == 'Favorites' ? c.favourite == true : true;
+
+      return isSearchMatch && isFavorite;
+    });
+  }, [contacts, filterState, searchInput]);
+
+  const filteringContacts = (newValue) => {
     setFilterState(newValue);
-  }, []);
+  };
 
-  const onToggleFavorites = useCallback((contact) => {
+  const onToggleFavorites = (contact) => {
     setContacts((users) => {
       const toogleFav = users.map((user) => {
         if (user.id === contact.id) {
@@ -110,7 +117,7 @@ const HomePage = () => {
       });
       return toogleFav;
     });
-  }, []);
+  };
 
   function renderContent() {
     switch (customRouter) {
@@ -148,7 +155,7 @@ const HomePage = () => {
   }
 
   return (
-    <div className="w-full md:w-4/6 lg:w-3/6 h-10/12  flex flex-col items-center gap-6">
+    <div className="w-full md:w-4/6 lg:w-7/12 xl:w-6/12 2xl:w-5/12 h-11/12 flex flex-col items-center gap-6">
       {renderContent()}
     </div>
   );

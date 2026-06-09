@@ -29,7 +29,7 @@ const ContactsList = ({
           inputRef={inputRef}
         />
       </div>
-      <div className="flex place-self-start rounded-md gap-[1px] p-px bg-slate-200">
+      <div className="flex place-self-start rounded-lg gap-[1px] p-px bg-slate-200">
         <FilterButton
           filteringContacts={filteringContacts}
           filterState={filterState}
@@ -50,24 +50,33 @@ const ContactsList = ({
             {value.length === 0 ? (
               <div className="w-full h-2/4 flex flex-col items-center justify-start gap-2">
                 <div className="flex flex-col items-center justify-center ">
-                  <h2 className="text-xl font-extrabold">
-                    Your vault is empty
-                  </h2>
+                  {filterState == 'All' ? (
+                    <h2 className="text-xl font-extrabold">
+                      Your vault is empty
+                    </h2>
+                  ) : (
+                    <h2 className="text-xl font-extrabold">No favorites yet</h2>
+                  )}
                   <p className="text-slate-500 text-sm text-wrap text-center">
                     Start building your network by adding your first contact.
                   </p>
                 </div>
                 <div>
-                  <AddContactBtn gotoAddContact={gotoAddContact} />
+                  {filterState == 'All' && (
+                    <AddContactBtn gotoAddContact={gotoAddContact} />
+                  )}
                 </div>
               </div>
             ) : (
               <div className="w-full h-2/4 flex flex-col items-center justify-start">
                 <h2 className="text-xl font-bold">No Contact Found</h2>
+                <p className="text-slate-500 text-sm text-wrap text-center">
+                  Try a different search term or check your spelling
+                </p>
               </div>
             )}
           </>
-        ) : filterState === 'All' ? (
+        ) : (
           contacts.map((contact) => {
             return (
               <ContactCard
@@ -79,19 +88,6 @@ const ContactsList = ({
               />
             );
           })
-        ) : (
-          filterState === 'Favorites' &&
-          contacts
-            .filter((contact) => contact.favourite)
-            .map((contact) => (
-              <ContactCard
-                key={contact.id}
-                contact={contact}
-                onDelete={onDelete}
-                onEdit={onEdit}
-                onToggleFavorites={onToggleFavorites}
-              />
-            ))
         )}
       </div>
     </div>
