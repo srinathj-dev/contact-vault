@@ -18,10 +18,7 @@ const ContactsList = ({
   onToggleFavorites,
 }) => {
   return (
-    <div className={`w-full h-full flex flex-col items-center gap-4 `}>
-      <div className="flex justify-end w-full">
-        <AddContactBtn gotoAddContact={gotoAddContact} width="w-max" />
-      </div>
+    <div className={`w-full h-full flex flex-col items-center gap-4 mt-4 `}>
       <div className=" w-full">
         <SearchBar
           value={value}
@@ -29,19 +26,28 @@ const ContactsList = ({
           inputRef={inputRef}
         />
       </div>
-      <div className="flex place-self-start rounded-lg gap-[1px] p-px bg-slate-200">
-        <FilterButton
-          filteringContacts={filteringContacts}
-          filterState={filterState}
-          filterButtonName="All"
-        />
-        <FilterButton
-          filteringContacts={filteringContacts}
-          filterState={filterState}
-          filterButtonName="Favorites"
-        />
+      <div className="w-full flex justify-between ">
+        <div className="flex  rounded-lg gap-[1px] p-px bg-slate-200">
+          <FilterButton
+            filteringContacts={filteringContacts}
+            filterState={filterState}
+            filterButtonName="All"
+          />
+          <FilterButton
+            filteringContacts={filteringContacts}
+            filterState={filterState}
+            filterButtonName="Favorites"
+          />
+        </div>
+        <div className="flex justify-end w-full">
+          <AddContactBtn
+            gotoAddContact={gotoAddContact}
+            icon="w-6 h-6 p-5 text-2xl rounded-lg"
+            addButtonName="+"
+          />
+        </div>
       </div>
-      <div className="w-full h-full flex flex-col items-center gap-4  overflow-y-scroll">
+      <div className="w-full h-full flex flex-1 flex-col items-center gap-4  mt-3 overflow-y-scroll">
         {!contacts || contacts.length === 0 ? (
           <>
             <div className="w-full h-2/4 flex justify-center items-end">
@@ -63,7 +69,11 @@ const ContactsList = ({
                 </div>
                 <div>
                   {filterState == 'All' && (
-                    <AddContactBtn gotoAddContact={gotoAddContact} />
+                    <AddContactBtn
+                      gotoAddContact={gotoAddContact}
+                      addButtonName="Add Contact"
+                      icon="px-7 py-2 text-lg rounded-full"
+                    />
                   )}
                 </div>
               </div>

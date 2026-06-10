@@ -1,12 +1,12 @@
-const AddContactBtn = ({ gotoAddContact, width }) => {
+const AddContactBtn = ({ gotoAddContact, icon, addButtonName, fontSize }) => {
   return (
     <button
-      className={`btn-primary ${width} rounded-full drop-shadow-lg drop-shadow-indigo-500/50 px-5 py-2`}
+      className={`btn-primary ${icon} ${fontSize}  drop-shadow-lg drop-shadow-indigo-500/50 flex items-center justify-center content-center`}
       onClick={() => {
         gotoAddContact();
       }}
     >
-      Add Contact
+      {addButtonName}
     </button>
   );
 };

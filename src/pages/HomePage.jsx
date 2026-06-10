@@ -99,7 +99,7 @@ const HomePage = () => {
       const isFavorite_when_favoriteFilter =
         filterState == 'Favorites' ? c.favourite == true : true;
 
-      return isSearchMatch && isFavorite;
+      return isSearchMatch && isFavorite_when_favoriteFilter;
     });
   }, [contacts, filterState, searchInput]);
 
