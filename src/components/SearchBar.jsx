@@ -12,7 +12,7 @@ const SearchBar = ({ onChange, value, inputRef }) => {
         value={value}
         type="text"
         name="search-bar"
-        placeholder="Search contacts... (Press / to focus-within)"
+        placeholder="Search contacts... (Press / to focus)"
         className={'input-primary w-full'}
         onChange={(e) => onChange(e.target.value)}
       />

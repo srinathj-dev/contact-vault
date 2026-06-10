@@ -155,7 +155,7 @@ const HomePage = () => {
   }
 
   return (
-    <div className="w-full md:w-4/6 lg:w-7/12 xl:w-6/12 2xl:w-5/12 h-11/12 flex flex-col items-center gap-6">
+    <div className="w-full md:w-4/6 lg:w-7/12 xl:w-6/12 2xl:w-5/12  flex flex-col items-center gap-6">
       {renderContent()}
     </div>
   );

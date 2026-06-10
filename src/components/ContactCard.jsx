@@ -56,13 +56,6 @@ const ContactCard = memo(({ contact, onDelete, onEdit, onToggleFavorites }) => {
           <Pencil className="text-slate-700 " size={18} />
         </button>
         <DeleteButton onDelete={onDelete} keyValue={contact.id} />
-        <div className="h-full flex items-center justify-center">
-          <ChevronRight
-            className="text-slate-300 hover:text-indigo-600 group-hover:text-indigo-500 transition-colors duration-300"
-            strokeWidth={2}
-            size={24}
-          />
-        </div>
       </div>
     </div>
   );
